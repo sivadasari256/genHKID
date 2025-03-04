@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Hong Kong ID</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background: navy;
+            color: white;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 2.5em;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.7);
+            animation: slideUp 1s ease-in-out;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .instructions {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 800px; 
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 800px; 
+        }
+        .alphabet-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .alphabet-button, .home-button {
+            padding: 10px 15px;
+            margin: 5px;
+            background-color: purple;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.2s;
+            cursor: pointer;
+            font-size: 1em;
+            position: relative;
+            overflow: hidden;
+        }
+        .alphabet-button:hover, .home-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+        #hkidOutput {
+            margin-top: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+            display: none; 
+        }
+        .hkid-card {
+            background: purple;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 400px;
+            cursor: pointer;
+            transition: background 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); 
+        }
+        .hkid-card:hover {
+            background: rgba(255, 255, 255, 0.3); 
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.7); 
+        }
+        .info {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            width: 100%;
+            max-width: 600px;
+        }
+        .info-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .info-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(40, 167, 69, 0.7);
+            transform: scale(0);
+            animation: rippleAnimation 0.6s linear forwards;
+            pointer-events: none;
+        }
+        @keyframes rippleAnimation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .loading {
+            display: none;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        .spinner {
+            border: 8px solid rgba(255, 255, 255, 0.2);
+            border-top: 8px solid #ffffff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .success-animation {
+            animation: successAnimation 0.5s ease forwards;
+        }
+        @keyframes successAnimation {
+            0% {
+            transform: scale(1);
+            background-color: purple;
+            color: white;
+            }
+            50% {
+            transform: scale(1.1);
+            background-color: purple;
+            color: white;
+            }
+            100% {
+            transform: scale(1);
+            background-color: purple;
+            color: white;
+            }
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+            .instructions, .container {
+                padding: 20px;
+            }
+            .alphabet-button, .home-button {
+                padding: 8px 12px;
+                font-size: 0.9em;
+            }
+            .hkid-card {
+                padding: 15px;
+            }
+            .info-card {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Generate Hong Kong ID</h1>
+    <div class="instructions">
+        <p>Select a letter from the options below to generate a unique HKID number.</p>
+        <p>Click on "Home" to return to the main page anytime.</p>
+    </div>
+    <div class="container">
+        <button class="home-button" onclick="goHome()">Home</button>
+        <div class="alphabet-container">
+            <script>
+                const letters = 'ABCDEFGHJKLMNPQRSTUVWX';
+                for (let letter of letters) {
+                    document.write(`<button class="alphabet-button" onclick="generateHKID('${letter}')">${letter}</button>`);
+                }
+            </script>
+        </div>
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            Generation in progress...
+        </div>
+        <div id="hkidOutput" class="hkid-card" onclick="copyToClipboard(event, this, currentHKID)">
+            <span id="hkidText"></span>
+        </div>
+        <div id="infoOutput" class="info"></div>
+    </div>
+
+    <div style="margin-top: 20px; text-align: center; font-size: 1em; color: white; background: rgba(0, 0, 0, 0.5); padding: 10px; border-radius: 10px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); position: fixed; bottom: 10px; right: 10px;"></div>
+        <p>Developed By: SIVA D</p>
+    </div>
+
+    <script>
+        class HKID {
+            constructor() {
+            this.thfDict = {};
+            for (let i = 0; i < 26; i++) {
+                this.thfDict[String.fromCharCode(65 + i)] = i + 1; 
+            }
+            this.lastOne = {
+                0: "0",
+                1: "A"
+            };
+            }
+
+            generateID(startingLetter) {
+            const HKIDArray = [
+                startingLetter,
+                Math.floor(Math.random() * 10),
+                Math.floor(Math.random() * 10),
+                Math.floor(Math.random() * 10),
+                Math.floor(Math.random() * 10),
+                Math.floor(Math.random() * 10),
+                Math.floor(Math.random() * 10),
+                '?' 
+            ];
+
+            const HKIDWeights = [
+                this.thfDict[HKIDArray[0]] * 8,
+                HKIDArray[1] * 7,
+                HKIDArray[2] * 6,
+                HKIDArray[3] * 5,
+                HKIDArray[4] * 4,
+                HKIDArray[5] * 3,
+                HKIDArray[6] * 2,
+            ];
+
+            const remainder = HKIDWeights.reduce((sum, value) => sum + value, 0) % 11;
+            HKIDArray[7] = this.lastOne[remainder] || (11 - remainder).toString();
+
+            return `${HKIDArray.slice(0, 7).join('')}(${HKIDArray[7]})`;
+            }
+
+            generateName() {
+            const firstNames = ["Brian", "San", "Norman", "Chess", "Andy", "Pierre", "John", "Michael", "David", "James", "Robert", "William", "Richard", "Joseph", "Thomas", "Charles", "Christopher", "Daniel", "Matthew", "Anthony", "Mark", "Donald", "Steven", "Paul", "Andrew", "Joshua", "Kenneth", "Kevin", "Brian", "George", "Edward", "Ronald", "Timothy", "Jason", "Jeffrey", "Ryan", "Jacob", "Gary", "Nicholas", "Eric", "Jonathan", "Stephen", "Larry", "Justin", "Scott", "Brandon", "Benjamin", "Samuel", "Gregory", "Frank"];
+            const lastNames = ["Kwok", "Chow", "Cheung", "Ye", "Zhang", "Zhong", "Smith", "Johnson", "Brown", "Taylor", "Anderson", "Thomas", "Jackson", "White", "Harris", "Martin", "Thompson", "Garcia", "Martinez", "Robinson", "Clark", "Rodriguez", "Lewis", "Lee", "Walker", "Hall", "Allen", "Young", "King", "Wright", "Scott", "Green", "Baker", "Adams", "Nelson", "Hill", "Ramirez", "Campbell", "Mitchell", "Roberts", "Carter", "Phillips", "Evans", "Turner", "Torres", "Parker", "Collins", "Edwards", "Stewart"];
+            const englishFirstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+            const englishLastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+
+            const chineseFirstNames = ["伟", "芳", "娜", "静", "强", "磊", "敏", "丽", "军", "洋", "勇", "艳", "杰", "娟", "涛", "明", "超", "秀英", "霞", "平", "刚", "桂英", "丹", "萍", "红", "玉兰", "飞", "玲", "桂芳", "燕", "梅", "鑫", "波", "辉", "凯", "鹏", "华", "健", "俊", "帆", "雪", "浩", "瑞", "龙", "亮", "强", "斌", "宇", "浩", "鑫", "博", "浩", "瑞", "龙", "亮", "强", "斌", "宇", "浩", "鑫", "博"];
+            const chineseLastNames = ["李", "王", "张", "刘", "陈", "杨", "黄", "吴", "赵", "周", "徐", "孙", "马", "朱", "胡", "林", "郭", "何", "高", "罗", "郑", "梁", "谢", "宋", "唐", "许", "邓", "冯", "韩", "曹", "彭", "曾", "肖", "田", "董", "袁", "潘", "于", "蒋", "蔡", "余", "杜", "叶", "程", "魏", "苏", "吕", "丁", "任", "卢", "姚", "沈", "钟", "姜", "崔", "谭", "廖", "范", "汪", "陆", "金", "石", "戴", "贾", "韦", "夏", "邱", "方", "侯", "邹", "熊", "孟", "秦", "白", "江", "阎", "薛", "尹", "段", "雷", "黎", "史", "龙", "陶", "贺", "顾", "毛", "郝", "龚", "邵", "万", "钱", "严", "赖", "覃", "洪", "武", "莫", "孔", "常", "向", "汤"];
+            const chineseFirstName = chineseFirstNames[Math.floor(Math.random() * chineseFirstNames.length)];
+            const chineseLastName = chineseLastNames[Math.floor(Math.random() * chineseLastNames.length)];
+
+            return {
+                englishFirstName,
+                englishLastName,
+                chineseFirstName,
+                chineseLastName,
+            };
+            }
+
+            generateDOB() {
+            const today = new Date();
+            const year = today.getFullYear() - Math.floor(Math.random() * 30 + 20);
+            const month = Math.floor(Math.random() * 12) + 1;
+            const day = Math.floor(Math.random() * 28) + 1;
+            return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            }
+
+            generateGender(name) {
+            const maleNames = ["Brian", "Norman", "Chess", "Andy", "Pierre", "John", "Michael", "David", "James", "Robert", "William", "Richard", "Joseph", "Thomas", "Charles", "Christopher", "Daniel", "Matthew", "Anthony", "Mark", "Donald", "Steven", "Paul", "Andrew", "Joshua", "Kenneth", "Kevin", "George", "Edward", "Ronald", "Timothy", "Jason", "Jeffrey", "Ryan", "Jacob", "Gary", "Nicholas", "Eric", "Jonathan", "Stephen", "Larry", "Justin", "Scott", "Brandon", "Benjamin", "Samuel", "Gregory", "Frank"];
+            return maleNames.includes(name.englishFirstName) ? 'M' : 'F';
+            }
+        }
+
+        let currentHKID = '';
+
+        function generateHKID(letter) {
+            document.getElementById('hkidText').innerText = '';
+            document.getElementById('infoOutput').innerHTML = '';
+
+            const loadingElement = document.getElementById('loading');
+            loadingElement.style.display = 'block';
+
+            const hkid = new HKID();
+            currentHKID = hkid.generateID(letter);
+            const name = hkid.generateName();
+            const dob = hkid.generateDOB();
+            const gender = hkid.generateGender(name);
+
+            setTimeout(() => {
+                loadingElement.style.display = 'none';
+                document.getElementById('hkidText').innerText = `${currentHKID}`;
+                document.getElementById('hkidOutput').style.display = 'block';
+                document.getElementById('infoOutput').innerHTML = `
+                    <div class="info-card" onclick="copyToClipboard(event, this, '${name.englishFirstName}')">
+                        <p><strong style="color: black;">English First Name:</strong></p>
+                        <p><strong style="color: purple;">${name.englishFirstName}</strong></p>
+                    </div>
+                    <div class="info-card" onclick="copyToClipboard(event, this, '${name.englishLastName}')">
+                        <p><strong style="color: black;">English Last Name:</strong></p>
+                        <p><strong style="color: purple;">${name.englishLastName}</strong></p>
+                    </div>
+                    <div class="info-card" onclick="copyToClipboard(event, this, '${name.chineseFirstName}')">
+                        <p><strong style="color: black;">Chinese First Name:</strong></p>
+                        <p><strong style="color: purple;">${name.chineseFirstName}</strong></p>
+                    </div>
+                    <div class="info-card" onclick="copyToClipboard(event, this, '${name.chineseLastName}')">
+                        <p><strong style="color: black;">Chinese Last Name:</strong></p>
+                        <p><strong style="color: purple;">${name.chineseLastName}</strong></p>
+                    </div>
+                    <div class="info-card" onclick="copyToClipboard(event, this, '${dob}')">
+                        <p><strong style="color: black;">Date of Birth:</strong></p>
+                        <p><strong style="color: purple;">${dob}</strong></p>
+                    </div>
+                    <div class="info-card" onclick="copyToClipboard(event, this, '${gender}')">
+                        <p><strong style="color: black;">Gender:</strong></p>
+                        <p><strong style="color: purple;">${gender}</strong></p>
+                    </div>
+                `;
+            }, 300);
+        }
+
+        function copyToClipboard(event, card, value) {
+            event.preventDefault(); 
+            navigator.clipboard.writeText(value).then(() => {
+            createRipple(event, card);
+            animateSuccess(card); 
+            showNotification('Copied to clipboard!'); 
+            }).catch(err => {
+            console.error('Failed to copy: ', err);
+            });
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.innerText = message;
+            notification.style.position = 'fixed';
+            notification.style.bottom = '20px';
+            notification.style.left = '50%';
+            notification.style.transform = 'translateX(-50%)';
+            notification.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+            notification.style.color = 'white';
+            notification.style.padding = '10px 20px';
+            notification.style.borderRadius = '5px';
+            notification.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.5)';
+            notification.style.zIndex = '1000';
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+            notification.remove();
+            }, 500); 
+        }
+
+        function createRipple(event, card) {
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple');
+            card.appendChild(ripple);
+
+            const pos = card.getBoundingClientRect();
+            const x = event.clientX - pos.left;
+            const y = event.clientY - pos.top;
+
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        }
+
+        function animateSuccess(card) {
+            card.classList.add('success-animation');
+            setTimeout(() => {
+                card.classList.remove('success-animation');
+            }, 500);
+        }
+
+        function goHome() {
+            window.location.reload();
+        }
+    </script>
+
+</body>
+</html>
