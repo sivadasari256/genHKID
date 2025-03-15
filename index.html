@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-V0NSCM7E0F"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-V0NSCM7E0F');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0NSCM7E0F"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-V0NSCM7E0F');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generate Hong Kong ID</title>
@@ -70,7 +70,7 @@
             flex-wrap: wrap;
             margin: 20px 0;
         }
-        .alphabet-button, .home-button {
+        .alphabet-button, .home-button, .bulk-button {
             padding: 10px 15px;
             margin: 5px;
             background-color: purple;
@@ -83,7 +83,7 @@
             position: relative;
             overflow: hidden;
         }
-        .alphabet-button:hover, .home-button:hover {
+        .alphabet-button:hover, .home-button:hover, .bulk-button:hover {
             background-color: #0056b3;
             transform: scale(1.05);
         }
@@ -235,7 +235,7 @@
     </div>
 
     <div style="margin-top: 20px; text-align: center; font-size: 1em; color: white; background: rgba(0, 0, 0, 0.5); padding: 10px; border-radius: 10px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); position: fixed; bottom: 10px; right: 10px;"></div>
-        <p>Developed By: SIVA D</p>
+ 
     </div>
 
     <script>
@@ -280,7 +280,7 @@
             }
 
             generateName() {
-            const firstNames = ["Brian", "San", "Norman", "Chess", "Andy", "Pierre", "John", "Michael", "David", "James", "Robert", "William", "Richard", "Joseph", "Thomas", "Charles", "Christopher", "Daniel", "Matthew", "Anthony", "Mark", "Donald", "Steven", "Paul", "Andrew", "Joshua", "Kenneth", "Kevin", "Brian", "George", "Edward", "Ronald", "Timothy", "Jason", "Jeffrey", "Ryan", "Jacob", "Gary", "Nicholas", "Eric", "Jonathan", "Stephen", "Larry", "Justin", "Scott", "Brandon", "Benjamin", "Samuel", "Gregory", "Frank"];
+            const firstNames = ["Brian", "Sany", "Normann", "Chess", "Andy", "Pierre", "John", "Michael", "David", "James", "Robert", "William", "Richard", "Joseph", "Thomas", "Charles", "Christopher", "Daniel", "Matthew", "Anthony", "Mark", "Donald", "Steven", "Paul", "Andrew", "Joshua", "Kenneth", "Kevin", "Brian", "George", "Edward", "Ronald", "Timothy", "Jason", "Jeffrey", "Ryan", "Jacob", "Gary", "Nicholas", "Eric", "Jonathan", "Stephen", "Larry", "Justin", "Scott", "Brandon", "Benjamin", "Samuel", "Gregory", "Frank"];
             const lastNames = ["Kwok", "Chow", "Cheung", "Ye", "Zhang", "Zhong", "Smith", "Johnson", "Brown", "Taylor", "Anderson", "Thomas", "Jackson", "White", "Harris", "Martin", "Thompson", "Garcia", "Martinez", "Robinson", "Clark", "Rodriguez", "Lewis", "Lee", "Walker", "Hall", "Allen", "Young", "King", "Wright", "Scott", "Green", "Baker", "Adams", "Nelson", "Hill", "Ramirez", "Campbell", "Mitchell", "Roberts", "Carter", "Phillips", "Evans", "Turner", "Torres", "Parker", "Collins", "Edwards", "Stewart"];
             const englishFirstName = firstNames[Math.floor(Math.random() * firstNames.length)];
             const englishLastName = lastNames[Math.floor(Math.random() * lastNames.length)];
@@ -417,6 +417,108 @@
 
         function goHome() {
             window.location.reload();
+        }
+    </script>
+
+    <button class="bulk-button" onclick="showBulkPopup()">Generate HKID data in BULK</button>
+
+    <div id="bulkPopup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); z-index: 1000; width: 300px; animation: fadeInPopup 0.3s ease-in-out;">
+        <h2 style="margin-top: 0; color: black; font-size: medium; text-align: center;">Generate HKID data in BULK</h2>
+        <label for="bulkAmountInput" style="color: black; font-size: medium;">Enter how much data you need (max 100000):</label>
+        <input type="number" id="bulkAmountInput" min="1" max="100000" inputmode="numeric" style="width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box;">
+        <div style="display: flex; justify-content: space-between; margin-top: 10px;"></div>
+            <button onclick="generateBulkHKID()" style="padding: 10px 15px; background-color: purple; color: white; border: none; border-radius: 5px; cursor: pointer; flex: 1; margin-right: 5px;">Generate</button>
+            <button onclick="closeBulkPopup()" style="padding: 10px 15px; background-color: gray; color: white; border: none; border-radius: 5px; cursor: pointer; flex: 1; margin-left: 5px;">Cancel</button>
+        </div>
+        <p id="bulkError" style="color: red; display: none; text-align: center; margin-top: 10px;">Invalid input</p>
+    </div>
+
+    <div id="bulkLoading" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0, 0, 0, 0.7); padding: 20px; border-radius: 10px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); z-index: 1000; width: 300px; text-align: center;">
+        <div class="spinner"></div>
+        <p style="color: white; margin-top: 10px;">Generating HKID data...</p>
+    </div>
+
+    <style>
+        @keyframes fadeInPopup {
+            from { opacity: 0; transform: translate(-50%, -60%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script>
+        function showBulkPopup() {
+            document.getElementById('bulkPopup').style.display = 'block';
+        }
+
+        function closeBulkPopup() {
+            document.getElementById('bulkPopup').style.display = 'none';
+        }
+
+        function generateBulkHKID() {
+            const amountInput = document.getElementById('bulkAmountInput');
+            const amount = parseInt(amountInput.value);
+            const errorElement = document.getElementById('bulkError');
+
+            if (isNaN(amount) || amount < 1 || amount > 100000) {
+                errorElement.style.display = 'block';
+                return;
+            }
+
+            errorElement.style.display = 'none';
+            document.getElementById('bulkPopup').style.display = 'none';
+            document.getElementById('bulkLoading').style.display = 'block';
+
+            const hkid = new HKID();
+            const data = [];
+            const generatedHKIDs = new Set();
+
+            for (let i = 0; i < amount; i++) {
+                let id;
+                do {
+                    const letter = 'ABCDEFGHJKLMNPQRSTUVWX'.charAt(Math.floor(Math.random() * 20));
+                    id = hkid.generateID(letter);
+                } while (generatedHKIDs.has(id));
+
+                generatedHKIDs.add(id);
+                const name = hkid.generateName();
+                const dob = hkid.generateDOB();
+                const gender = hkid.generateGender(name);
+                data.push({
+                    Number: i + 1,
+                    HKID: id,
+                    EnglishFirstName: name.englishFirstName,
+                    EnglishLastName: name.englishLastName,
+                    ChineseFirstName: name.chineseFirstName,
+                    ChineseLastName: name.chineseLastName,
+                    DOB: dob,
+                    Gender: gender
+                });
+            }
+
+            setTimeout(() => {
+                exportToXLSX(data, amount);
+                document.getElementById('bulkLoading').style.display = 'none';
+            }, 3000); 
+        }
+
+        function exportToXLSX(data, amount) {
+            const ws = XLSX.utils.json_to_sheet(data);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'HKID Data');
+
+            const headerRange = XLSX.utils.decode_range(ws['!ref']);
+            for (let C = headerRange.s.c; C <= headerRange.e.c; ++C) {
+                const cellAddress = XLSX.utils.encode_cell({ r: 0, c: C });
+                if (!ws[cellAddress]) continue;
+                ws[cellAddress].s = {
+                    fill: { fgColor: { rgb: "800080" } },
+                    font: { color: { rgb: "FFFFFF" }, bold: true }
+                };
+            }
+
+            const fileName = `hkid_data_${amount}.xlsx`;
+            XLSX.writeFile(wb, fileName);
         }
     </script>
 
