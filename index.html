@@ -243,34 +243,34 @@
             constructor() {
             this.thfDict = {};
             for (let i = 0; i < 26; i++) {
-                this.thfDict[String.fromCharCode(65 + i)] = i + 1; 
+            this.thfDict[String.fromCharCode(65 + i)] = i + 1; 
             }
             this.lastOne = {
-                0: "0",
-                1: "A"
+            0: "0",
+            1: "A"
             };
             }
 
             generateID(startingLetter) {
             const HKIDArray = [
-                startingLetter,
-                Math.floor(Math.random() * 10),
-                Math.floor(Math.random() * 10),
-                Math.floor(Math.random() * 10),
-                Math.floor(Math.random() * 10),
-                Math.floor(Math.random() * 10),
-                Math.floor(Math.random() * 10),
-                '?' 
+            startingLetter,
+            Math.floor(Math.random() * 10),
+            Math.floor(Math.random() * 10),
+            Math.floor(Math.random() * 10),
+            Math.floor(Math.random() * 10),
+            Math.floor(Math.random() * 10),
+            Math.floor(Math.random() * 10),
+            '?' 
             ];
 
             const HKIDWeights = [
-                this.thfDict[HKIDArray[0]] * 8,
-                HKIDArray[1] * 7,
-                HKIDArray[2] * 6,
-                HKIDArray[3] * 5,
-                HKIDArray[4] * 4,
-                HKIDArray[5] * 3,
-                HKIDArray[6] * 2,
+            this.thfDict[HKIDArray[0]] * 8,
+            HKIDArray[1] * 7,
+            HKIDArray[2] * 6,
+            HKIDArray[3] * 5,
+            HKIDArray[4] * 4,
+            HKIDArray[5] * 3,
+            HKIDArray[6] * 2,
             ];
 
             const remainder = HKIDWeights.reduce((sum, value) => sum + value, 0) % 11;
@@ -280,21 +280,24 @@
             }
 
             generateName() {
-            const firstNames = ["Brian", "Sany", "Normann", "Chess", "Andy", "Pierre", "John", "Michael", "David", "James", "Robert", "William", "Richard", "Joseph", "Thomas", "Charles", "Christopher", "Daniel", "Matthew", "Anthony", "Mark", "Donald", "Steven", "Paul", "Andrew", "Joshua", "Kenneth", "Kevin", "Brian", "George", "Edward", "Ronald", "Timothy", "Jason", "Jeffrey", "Ryan", "Jacob", "Gary", "Nicholas", "Eric", "Jonathan", "Stephen", "Larry", "Justin", "Scott", "Brandon", "Benjamin", "Samuel", "Gregory", "Frank"];
-            const lastNames = ["Kwok", "Chow", "Cheung", "Ye", "Zhang", "Zhong", "Smith", "Johnson", "Brown", "Taylor", "Anderson", "Thomas", "Jackson", "White", "Harris", "Martin", "Thompson", "Garcia", "Martinez", "Robinson", "Clark", "Rodriguez", "Lewis", "Lee", "Walker", "Hall", "Allen", "Young", "King", "Wright", "Scott", "Green", "Baker", "Adams", "Nelson", "Hill", "Ramirez", "Campbell", "Mitchell", "Roberts", "Carter", "Phillips", "Evans", "Turner", "Torres", "Parker", "Collins", "Edwards", "Stewart"];
-            const englishFirstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+            const maleFirstNames = ["Brian", "Sany", "Normann", "Chess", "Andy", "Pierre", "John", "Michael", "David", "James", "Robert", "William", "Richard", "Joseph", "Thomas", "Charles", "Christopher", "Daniel", "Matthew", "Anthony", "Mark", "Donald", "Steven", "Paul", "Andrew", "Joshua", "Kenneth", "Kevin", "Brian", "George", "Edward", "Ronald", "Timothy", "Jason", "Jeffrey", "Ryan", "Jacob", "Gary", "Nicholas", "Eric", "Jonathan", "Stephen", "Larry", "Justin", "Scott", "Brandon", "Benjamin", "Samuel", "Gregory", "Frank"];
+            const femaleFirstNames = ["Mary", "Patricia", "Linda", "Barbara", "Elizabeth", "Jennifer", "Maria", "Susan", "Margaret", "Dorothy", "Lisa", "Nancy", "Karen", "Betty", "Helen", "Sandra", "Donna", "Carol", "Ruth", "Sharon", "Michelle", "Laura", "Sarah", "Kimberly", "Deborah", "Jessica", "Shirley", "Cynthia", "Angela", "Melissa", "Brenda", "Amy", "Anna", "Rebecca", "Virginia", "Kathleen", "Pamela", "Martha", "Debra", "Amanda", "Stephanie", "Carolyn", "Christine", "Marie", "Janet", "Catherine", "Frances", "Ann", "Joyce", "Diane"];
+            const lastNames = ["Chan", "Cheung", "Cheng", "Chow", "Fung", "Ho", "Kwok", "Lam", "Lee", "Leung", "Liu", "Ng", "Tang", "Wong", "Yip", "Yuen"];
+            
+            const isMale = Math.random() < 0.5;
+            const englishFirstName = isMale ? maleFirstNames[Math.floor(Math.random() * maleFirstNames.length)] : femaleFirstNames[Math.floor(Math.random() * femaleFirstNames.length)];
             const englishLastName = lastNames[Math.floor(Math.random() * lastNames.length)];
 
             const chineseFirstNames = ["伟", "芳", "娜", "静", "强", "磊", "敏", "丽", "军", "洋", "勇", "艳", "杰", "娟", "涛", "明", "超", "秀英", "霞", "平", "刚", "桂英", "丹", "萍", "红", "玉兰", "飞", "玲", "桂芳", "燕", "梅", "鑫", "波", "辉", "凯", "鹏", "华", "健", "俊", "帆", "雪", "浩", "瑞", "龙", "亮", "强", "斌", "宇", "浩", "鑫", "博", "浩", "瑞", "龙", "亮", "强", "斌", "宇", "浩", "鑫", "博"];
-            const chineseLastNames = ["李", "王", "张", "刘", "陈", "杨", "黄", "吴", "赵", "周", "徐", "孙", "马", "朱", "胡", "林", "郭", "何", "高", "罗", "郑", "梁", "谢", "宋", "唐", "许", "邓", "冯", "韩", "曹", "彭", "曾", "肖", "田", "董", "袁", "潘", "于", "蒋", "蔡", "余", "杜", "叶", "程", "魏", "苏", "吕", "丁", "任", "卢", "姚", "沈", "钟", "姜", "崔", "谭", "廖", "范", "汪", "陆", "金", "石", "戴", "贾", "韦", "夏", "邱", "方", "侯", "邹", "熊", "孟", "秦", "白", "江", "阎", "薛", "尹", "段", "雷", "黎", "史", "龙", "陶", "贺", "顾", "毛", "郝", "龚", "邵", "万", "钱", "严", "赖", "覃", "洪", "武", "莫", "孔", "常", "向", "汤"];
+            const chineseLastNames = ["陈", "张", "郑", "周", "方", "冯", "何", "胡", "黄", "李", "梁", "林", "刘", "卢", "马", "吴", "谢", "杨", "叶", "余", "曾", "赵", "钟", "邓", "邱", "邵", "蔡", "郑", "梁", "谭", "邓", "冯", "韩", "曹", "彭", "曾", "肖", "田", "董", "袁", "潘", "于", "蒋", "蔡", "余", "杜", "叶", "程", "魏", "苏", "吕", "丁", "任", "卢", "姚", "沈", "钟", "姜", "崔", "谭", "廖", "范", "汪", "陆", "金", "石", "戴", "贾", "韦", "夏", "邱", "方", "侯", "邹", "熊", "孟", "秦", "白", "江", "阎", "薛", "尹", "段", "雷", "黎", "史", "龙", "陶", "贺", "顾", "毛", "郝", "龚", "邵", "万", "钱", "严", "赖", "覃", "洪", "武", "莫", "孔", "常", "向", "汤"];
             const chineseFirstName = chineseFirstNames[Math.floor(Math.random() * chineseFirstNames.length)];
             const chineseLastName = chineseLastNames[Math.floor(Math.random() * chineseLastNames.length)];
 
             return {
-                englishFirstName,
-                englishLastName,
-                chineseFirstName,
-                chineseLastName,
+            englishFirstName,
+            englishLastName,
+            chineseFirstName,
+            chineseLastName,
             };
             }
 
@@ -307,8 +310,9 @@
             }
 
             generateGender(name) {
-            const maleNames = ["Brian", "Norman", "Chess", "Andy", "Pierre", "John", "Michael", "David", "James", "Robert", "William", "Richard", "Joseph", "Thomas", "Charles", "Christopher", "Daniel", "Matthew", "Anthony", "Mark", "Donald", "Steven", "Paul", "Andrew", "Joshua", "Kenneth", "Kevin", "George", "Edward", "Ronald", "Timothy", "Jason", "Jeffrey", "Ryan", "Jacob", "Gary", "Nicholas", "Eric", "Jonathan", "Stephen", "Larry", "Justin", "Scott", "Brandon", "Benjamin", "Samuel", "Gregory", "Frank"];
-            return maleNames.includes(name.englishFirstName) ? 'M' : 'F';
+            const maleFirstNames = ["Brian", "Sany", "Normann", "Chess", "Andy", "Pierre", "John", "Michael", "David", "James", "Robert", "William", "Richard", "Joseph", "Thomas", "Charles", "Christopher", "Daniel", "Matthew", "Anthony", "Mark", "Donald", "Steven", "Paul", "Andrew", "Joshua", "Kenneth", "Kevin", "Brian", "George", "Edward", "Ronald", "Timothy", "Jason", "Jeffrey", "Ryan", "Jacob", "Gary", "Nicholas", "Eric", "Jonathan", "Stephen", "Larry", "Justin", "Scott", "Brandon", "Benjamin", "Samuel", "Gregory", "Frank"];
+            const femaleFirstNames = ["Mary", "Patricia", "Linda", "Barbara", "Elizabeth", "Jennifer", "Maria", "Susan", "Margaret", "Dorothy", "Lisa", "Nancy", "Karen", "Betty", "Helen", "Sandra", "Donna", "Carol", "Ruth", "Sharon", "Michelle", "Laura", "Sarah", "Kimberly", "Deborah", "Jessica", "Shirley", "Cynthia", "Angela", "Melissa", "Brenda", "Amy", "Anna", "Rebecca", "Virginia", "Kathleen", "Pamela", "Martha", "Debra", "Amanda", "Stephanie", "Carolyn", "Christine", "Marie", "Janet", "Catherine", "Frances", "Ann", "Joyce", "Diane"];
+            return maleFirstNames.includes(name.englishFirstName) ? 'M' : 'F';
             }
         }
 
@@ -472,6 +476,7 @@
             const hkid = new HKID();
             const data = [];
             const generatedHKIDs = new Set();
+            const halfAmount = Math.floor(amount / 2);
 
             for (let i = 0; i < amount; i++) {
                 let id;
