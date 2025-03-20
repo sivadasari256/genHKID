@@ -126,8 +126,10 @@
         }
 
      
-        let hkidCount = 0;
+        
         function generateHKID(letter) {
+            let hkidCount = 0;
+            const count = hkidCount; // Use the existing hkidCount variable
             document.getElementById('hkidText').innerText = '';
             document.getElementById('infoOutput').innerHTML = '';
 
@@ -173,6 +175,8 @@
             hkidCount++;
             updateCountFile(hkidCount);
             displayCount(hkidCount);
+            console.log('HKID generated. Updating count file...');
+            updateCountFile(count);
             }, 300);
         }
 
@@ -347,25 +351,55 @@
     }
 
     function updateCountFile(count) {
-    // Logic to update the count file in the repository using GitHub API
-    const token = process.env.MY_TOKEN_HKID_COUNT; // Ensure this environment variable is set
+    console.log('updateCountFile called with count:', count);
+    
+    const token = process.env.MY_TOKEN_HKID_COUNT; 
+    if (!token) {
+        console.error('GitHub token is not set!');
+        return;
+    }
+
     const filePath = 'hkid_count.txt';
     const repo = 'sivadasari256/genHKID';
     const branch = 'main';
 
+ 
     fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
-        method: 'PUT',
+        method: 'GET',
         headers: {
             'Authorization': `token ${token}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            message: 'Update HKID count',
-            content: btoa(count.toString()),
-            branch: branch
-        })
+            'Accept': 'application/vnd.github.v3+json'
+        }
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Failed to fetch file details: ${response.statusText}`);
+        }
+        return response.json();
+    })
+    .then(fileData => {
+        const sha = fileData.sha;
+
+            return fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `token ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                message: 'Update HKID count',
+                content: btoa(count.toString()),
+                sha: sha,
+                branch: branch
+            })
+        });
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Failed to update file: ${response.statusText}`);
+        }
+        return response.json();
+    })
     .then(data => console.log('Count updated:', data))
     .catch(error => console.error('Error updating count:', error));
 }
