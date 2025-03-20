@@ -1,4 +1,3 @@
-
 name: Update HKID Count
 
 on:
@@ -15,13 +14,26 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Fetch current HKID count
+        run: |
+          current_count=$(cat hkid_count.txt)
+          echo "Current HKID count: $current_count"
+        id: fetch_count
+
       - name: Update HKID count
         env:
-          GH_TOKEN: ${{ secrets.MyTokenHKIDCount }}
+          GH_TOKEN: ${{ secrets.MY_TOKEN_HKID_COUNT }}
         run: |
-          echo "$HKID_COUNT" > hkid_count.txt
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add hkid_count.txt
-          git commit -m "Update HKID count"
-          git push
+          new_count=$(( $(cat hkid_count.txt) + 1 )) # Example increment logic
+          echo "New HKID count: $new_count"
+          
+          if [ "$new_count" != "$(cat hkid_count.txt)" ]; then
+            echo "$new_count" > hkid_count.txt
+            git config --global user.name "github-actions[bot]"
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            git add hkid_count.txt
+            git commit -m "Update HKID count"
+            git push
+          else
+            echo "No change in HKID count. Skipping commit and push."
+          fi
