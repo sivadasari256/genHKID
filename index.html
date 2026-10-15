@@ -873,6 +873,13 @@
             document.getElementById('bulkModal').style.display = 'none';
         }
 
+        function resetApp() {
+            document.getElementById('outputWrapper').style.display = 'none';
+            currentHKID = '';
+            currentProfile = null;
+            showToast('Dashboard reset');
+        }
+
         function showToast(message) {
             const container = document.getElementById('toastContainer');
             container.innerHTML = '';
@@ -883,140 +890,116 @@
             container.appendChild(toast);
             setTimeout(() => {
                 toast.style.opacity = '0';
-                setTimeout(() => toast.remove(), 250);
-            }, 2300);
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
         }
 
-        function copyToClipboard(text, message) {
-            navigator.clipboard.writeText(text).then(() => showToast(message));
+        function copyToClipboard(text, successMsg) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast(successMsg);
+            }).catch(err => {
+                showToast('Failed to copy text');
+            });
         }
 
-        function resetApp() {
-            document.getElementById('outputWrapper').style.display = 'none';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            showToast('Returned to home dashboard');
-        }
-
-        // Optimized Non-Blocking Bulk Dataset Generator with Robust Mobile Download Handlers
         function generateBulkDataset() {
-            const inputField = document.getElementById('bulkInput');
-            let target = parseInt(inputField.value);
+            const count = parseInt(document.getElementById('bulkInput').value);
             const includeFullName = document.getElementById('bulkIncludeFullName').checked;
-            const orderOption = document.getElementById('bulkNameOrder').value;
+            const nameOrder = document.getElementById('bulkNameOrder').value;
 
-            const absoluteMax = isMobile ? MAX_MOBILE_LIMIT : 1000000;
-            if (isNaN(target) || target < 1) target = 1;
-            if (target > absoluteMax) target = absoluteMax;
-            inputField.value = target;
-
-            // Hide configuration fields
             document.getElementById('inputGroupContainer').style.display = 'none';
             document.getElementById('optionsGroupContainer').style.display = 'none';
-
-            const workingNotice = document.getElementById('workingNotice');
-            const workingSubtitle = document.getElementById('workingSubtitle');
-            workingNotice.style.display = 'block';
             document.getElementById('estimateBox').style.display = 'none';
             document.getElementById('modalActionButtons').style.display = 'none';
             
+            const workingNotice = document.getElementById('workingNotice');
             const progressBox = document.getElementById('progressBox');
             const progressBarFill = document.getElementById('progressBarFill');
-            const progressPercent = document.getElementById('progressPercent');
             const progressText = document.getElementById('progressText');
+            const progressPercent = document.getElementById('progressPercent');
+
+            workingNotice.style.display = 'block';
             progressBox.style.display = 'block';
 
-            const startTime = performance.now();
-            const data = [];
-            const chunkSize = 10000; 
+            let aoaData = [];
+            let headers = ['HKID', 'English First Name', 'English Last Name', 'Chinese Surname', 'Chinese Given Name'];
+            if (includeFullName) headers.push('Full Chinese Name');
+            headers.push('Date of Birth', 'Gender');
+            aoaData.push(headers);
+
+            let batchSize = isMobile ? 5000 : 20000;
             let currentIndex = 0;
 
-            const fnList = ['John', 'David', 'Michael', 'Chris', 'James', 'Mary', 'Jennifer', 'Linda', 'Sarah', 'Karen'];
-            const lnList = ['Chan', 'Wong', 'Lee', 'Cheung', 'Ng', 'Liu', 'Leung', 'Ho', 'Kwok', 'Lam'];
-            const cfnList = ['伟', '芳', '娜', '静', '强', '磊', '敏', '丽', '军', '洋'];
-            const clnList = ['陈', '张', '郑', '周', '方', '何', '黄', '李', '梁', '刘'];
-
-            function processChunk() {
-                const chunkEnd = Math.min(currentIndex + chunkSize, target);
+            function processBatch() {
+                let endIdx = Math.min(currentIndex + batchSize, count);
                 
-                for (let i = currentIndex; i < chunkEnd; i++) {
-                    const prefix = letters[Math.floor(Math.random() * letters.length)];
-                    const hkid = engine.createID(prefix);
-                    
-                    const f = fnList[Math.floor(Math.random() * fnList.length)];
-                    const l = lnList[Math.floor(Math.random() * lnList.length)];
-                    const cfn = cfnList[Math.floor(Math.random() * cfnList.length)];
-                    const cln = clnList[Math.floor(Math.random() * clnList.length)];
-                    const year = 1980 + Math.floor(Math.random() * 30);
-                    const month = String(Math.floor(Math.random() * 12) + 1).padStart(2, '0');
-                    const day = String(Math.floor(Math.random() * 28) + 1).padStart(2, '0');
-                    
-                    const row = {
-                        "HKID Number": hkid,
-                        "English First Name": f,
-                        "English Last Name": l,
-                        "Chinese Surname": cln,
-                        "Chinese Given Name": cfn,
-                    };
+                for (let i = currentIndex; i < endIdx; i++) {
+                    let hkid = engine.createID();
+                    let profile = engine.createProfile();
+                    let fullCn = nameOrder === 'surname-first' 
+                        ? `${profile.cnSurname}${profile.cnGivenName}` 
+                        : `${profile.cnGivenName}${profile.cnSurname}`;
 
-                    if (includeFullName) {
-                        row["Full Chinese Name"] = orderOption === 'surname-first' 
-                            ? `${cln}${cfn}` 
-                            : `${cfn}${cln}`;
-                    }
-
-                    row["Date of Birth"] = `${year}-${month}-${day}`;
-                    row["Gender"] = ['John', 'David', 'Michael', 'Chris', 'James'].includes(f) ? 'M' : 'F';
+                    let row = [hkid, profile.enFirstName, profile.enLastName, profile.cnSurname, profile.cnGivenName];
+                    if (includeFullName) row.push(fullCn);
+                    row.push(profile.dob, profile.gender);
                     
-                    data.push(row);
+                    aoaData.push(row);
                 }
 
-                currentIndex = chunkEnd;
-                const percent = Math.round((currentIndex / target) * 100);
-                
-                progressBarFill.style.width = `${percent}%`;
-                progressPercent.innerText = `${percent}%`;
-                const elapsedSec = ((performance.now() - startTime) / 1000).toFixed(1);
-                workingSubtitle.innerText = `Generating records... ~${elapsedSec}s elapsed`;
-                progressText.innerText = `Processed ${currentIndex.toLocaleString()} / ${target.toLocaleString()} rows`;
+                currentIndex = endIdx;
+                let percent = Math.round((currentIndex / count) * 100);
+                progressBarFill.style.width = percent + '%';
+                progressPercent.innerText = percent + '%';
+                progressText.innerText = `Processed ${currentIndex.toLocaleString()} of ${count.toLocaleString()} records...`;
 
-                if (currentIndex < target) {
-                    setTimeout(processChunk, 0);
+                if (currentIndex < count) {
+                    setTimeout(processBatch, 4);
                 } else {
-                    progressText.innerText = `Compiling Excel file (.xlsx)...`;
                     setTimeout(() => {
                         try {
-                            const worksheet = XLSX.utils.json_to_sheet(data);
-                            const workbook = XLSX.utils.book_new();
-                            XLSX.utils.book_append_sheet(workbook, worksheet, "HKID_Dataset");
-                            
-                            // Generate Blob URL for manual/automatic download
-                            const wbout = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-                            const blob = new Blob([wbout], { type: 'application/octet-stream' });
-                            const fileName = `HKID_Test_Dataset_${target}_records.xlsx`;
-                            const url = URL.createObjectURL(blob);
+                            progressText.innerText = `Building spreadsheet package...`;
+                            let ws = XLSX.utils.aoa_to_sheet(aoaData);
+                            let wb = XLSX.utils.book_new();
+                            XLSX.utils.book_append_sheet(wb, ws, "HKID_Dataset");
 
-                            // Hide progress & working indicators, reveal permanent download button
+                            let wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+                            let blob = new Blob([wbout], { type: "application/octet-stream" });
+                            let url = URL.createObjectURL(blob);
+
                             workingNotice.style.display = 'none';
                             progressBox.style.display = 'none';
 
-                            const manualBtn = document.getElementById('manualDownloadBtn');
-                            manualBtn.href = url;
-                            manualBtn.download = fileName;
-                            
-                            document.getElementById('mobileDownloadContainer').style.display = 'block';
-
-                            const totalTime = ((performance.now() - startTime) / 1000).toFixed(2);
-                            showToast(`Successfully generated ${target.toLocaleString()} records in ${totalTime}s!`);
+                            if (isMobile) {
+                                let manualBtn = document.getElementById('manualDownloadBtn');
+                                manualBtn.href = url;
+                                manualBtn.download = `HKID_Test_Dataset_${count}_records.xlsx`;
+                                document.getElementById('mobileDownloadContainer').style.display = 'block';
+                            } else {
+                                let downloadLink = document.createElement("a");
+                                downloadLink.href = url;
+                                downloadLink.download = `HKID_Test_Dataset_${count}_records.xlsx`;
+                                document.body.appendChild(downloadLink);
+                                downloadLink.click();
+                                document.body.removeChild(downloadLink);
+                                closeBulkModal();
+                                showToast(`Successfully exported ${count.toLocaleString()} records!`);
+                            }
                         } catch (err) {
                             console.error(err);
-                            alert("Export failed: " + err.message);
-                            closeBulkModal();
+                            workingNotice.style.display = 'none';
+                            progressBox.style.display = 'none';
+                            document.getElementById('bulkError').innerText = "Error generating file. Try a smaller record size.";
+                            document.getElementById('bulkError').style.display = 'block';
+                            document.getElementById('inputGroupContainer').style.display = 'block';
+                            document.getElementById('optionsGroupContainer').style.display = 'block';
+                            document.getElementById('modalActionButtons').style.display = 'flex';
                         }
                     }, 50);
                 }
             }
 
-            setTimeout(processChunk, 10);
+            setTimeout(processBatch, 50);
         }
     </script>
 </body>
