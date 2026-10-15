@@ -1,81 +1,961 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0NSCM7E0F"></script>
     <script>
-        var _0x41fc7a=_0x34c3;(function(_0x4e071f,_0x1db7ef){var _0xbe9c8b=_0x34c3,_0x4ba3cd=_0x4e071f();while(!![]){try{var _0x3d34b1=parseInt(_0xbe9c8b(0x17f))/0x1*(-parseInt(_0xbe9c8b(0x17d))/0x2)+-parseInt(_0xbe9c8b(0x18a))/0x3*(parseInt(_0xbe9c8b(0x181))/0x4)+-parseInt(_0xbe9c8b(0x189))/0x5*(-parseInt(_0xbe9c8b(0x183))/0x6)+parseInt(_0xbe9c8b(0x187))/0x7+parseInt(_0xbe9c8b(0x18b))/0x8+parseInt(_0xbe9c8b(0x186))/0x9+-parseInt(_0xbe9c8b(0x185))/0xa*(-parseInt(_0xbe9c8b(0x180))/0xb);if(_0x3d34b1===_0x1db7ef)break;else _0x4ba3cd['push'](_0x4ba3cd['shift']());}catch(_0x199dbc){_0x4ba3cd['push'](_0x4ba3cd['shift']());}}}(_0x16de,0x5872f),window[_0x41fc7a(0x182)]=window[_0x41fc7a(0x182)]||[]);function _0x16de(){var _0x5d9f7d=['104896SXnpBV','172CWeHxo','dataLayer','125118euNCBU','G-V0NSCM7E0F','20RCzmFa','1469124VSFLiN','2486568zhZYNZ','config','135hcGBNn','33711AtZYOO','216152OdUCdP','4BFxUHJ','push','141052DDeHDW'];_0x16de=function(){return _0x5d9f7d;};return _0x16de();}function _0x34c3(_0x5004c1,_0x330355){var _0x16de44=_0x16de();return _0x34c3=function(_0x34c33c,_0x4d9c96){_0x34c33c=_0x34c33c-0x17d;var _0x3046fc=_0x16de44[_0x34c33c];return _0x3046fc;},_0x34c3(_0x5004c1,_0x330355);}function gtag(){var _0x574aa8=_0x41fc7a;dataLayer[_0x574aa8(0x17e)](arguments);}gtag('js',new Date()),gtag(_0x41fc7a(0x188),_0x41fc7a(0x184));
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-V0NSCM7E0F');
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generate Hong Kong ID</title>
-      <style>
-        .coffee-button{align-items:center;background-color:transparent;border:none;border-radius:50%;bottom:20px;box-shadow:0 4px 8px rgba(0,0,0,.2);color:#000;cursor:pointer;display:flex;font-size:.8em;justify-content:center;left:20px;padding:15px;position:fixed;transition:background-color .3s,transform .2s}.coffee-button:hover{background-color:gold;opacity:.8;transform:scale(1.05)}.coffee-button:before{content:"☕";font-size:1.5em;margin-right:5px}
-    </style>
-<!--     <button class="coffee-button" onclick="window.open('https://buymeacoffee.com/sivadasari', '_blank')"></button> -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <title>Enterprise Hong Kong ID Generator & Test Data Engine</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-       body{align-items:center;background:navy;box-sizing:border-box;color:#fff;display:flex;flex-direction:column;font-family:Montserrat,sans-serif;justify-content:center;margin:0;min-height:100vh;padding:20px}h1{animation:slideUp 1s ease-in-out;font-family:Roboto,sans-serif;font-size:2.5em;margin-bottom:20px;text-shadow:3px 3px 10px rgba(0,0,0,.7)}@keyframes slideUp{0%{opacity:0;transform:translateY(100%)}to{opacity:1;transform:translateY(0)}}.instructions{background:hsla(0,0%,100%,.1);border-radius:10px;font-size:1.2em;margin-bottom:20px;padding:20px;text-align:center}.container,.instructions{align-items:center;box-shadow:0 4px 20px rgba(0,0,0,.5);display:flex;flex-direction:column;max-width:800px;width:100%}.container{background:hsla(0,0%,100%,.7);border-radius:15px;padding:30px}.alphabet-container{display:flex;flex-wrap:wrap;justify-content:center;margin:20px 0}.alphabet-button,.bulk-button,.home-button{background-color:purple;border:none;border-radius:5px;color:#fff;cursor:pointer;font-size:1em;margin:5px;overflow:hidden;padding:10px 15px;position:relative;transition:background-color .3s,transform .2s}.alphabet-button:hover,.bulk-button:hover,.home-button:hover{background-color:#0056b3;transform:scale(1.05)}#hkidOutput{display:none;font-size:1.5em;font-weight:700}#hkidOutput,.hkid-card{margin-top:20px;text-align:center}.hkid-card{background:purple;border-radius:10px;box-shadow:0 4px 20px rgba(0,0,0,.5);cursor:pointer;max-width:400px;padding:20px;transition:background .3s,box-shadow .3s;width:100%}.hkid-card:hover{background:hsla(0,0%,100%,.3);box-shadow:0 6px 30px rgba(0,0,0,.7)}.info{display:grid;gap:15px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));margin-top:20px;max-width:600px;width:100%}.info-card{animation:fadeIn .5s ease-in-out;background:hsla(0,0%,100%,.1);border-radius:10px;cursor:pointer;overflow:hidden;padding:15px;position:relative;text-align:center}.info-card:hover{background:hsla(0,0%,100%,.2)}.ripple{animation:rippleAnimation .6s linear forwards;background:rgba(40,167,69,.7);border-radius:50%;pointer-events:none;position:absolute;transform:scale(0)}@keyframes rippleAnimation{to{opacity:0;transform:scale(4)}}@keyframes fadeIn{0%{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}.loading{display:none;font-size:1.2em;margin-top:20px}.spinner{animation:spin 1s linear infinite;border:8px solid hsla(0,0%,100%,.2);border-radius:50%;border-top-color:#fff;height:40px;margin:0 auto;width:40px}@keyframes spin{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}.success-animation{animation:successAnimation .5s ease forwards}@keyframes successAnimation{0%{background-color:purple;color:#fff;transform:scale(1)}50%{background-color:purple;color:#fff;transform:scale(1.1)}to{background-color:purple;color:#fff;transform:scale(1)}}@media (max-width:600px){h1{font-size:2em}.container,.instructions{padding:20px}.alphabet-button,.home-button{font-size:.9em;padding:8px 12px}.hkid-card{padding:15px}.info-card{padding:10px}}
+        :root {
+            --bg-gradient: linear-gradient(135deg, #f0f4f8 0%, #dbeafe 100%);
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-border: rgba(14, 116, 144, 0.15);
+            --card-border-hover: rgba(14, 116, 144, 0.4);
+            --primary: #0284c7;
+            --primary-hover: #0369a1;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent: #0284c7;
+            --warning-bg: rgba(2, 132, 199, 0.05);
+            --warning-border: rgba(2, 132, 199, 0.2);
+            --warning-text: #0369a1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #0f172a 0%, #0284c7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .disclaimer-banner {
+            background: var(--warning-bg);
+            border: 1px solid var(--warning-border);
+            border-radius: 14px;
+            padding: 14px 18px;
+            margin-bottom: 25px;
+            max-width: 900px;
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.06);
+            backdrop-filter: blur(10px);
+        }
+
+        .disclaimer-banner i {
+            font-size: 1.2rem;
+            color: var(--warning-text);
+            margin-top: 3px;
+        }
+
+        .disclaimer-content h4 {
+            font-size: 0.9rem;
+            color: var(--warning-text);
+            font-weight: 700;
+            margin-bottom: 3px;
+            letter-spacing: 0.3px;
+        }
+
+        .disclaimer-content p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .container {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 35px;
+            max-width: 900px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+            backdrop-filter: blur(16px);
+        }
+
+        .nav-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 22px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.92rem;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.4);
+            background: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background: rgba(14, 116, 144, 0.05);
+            border: 1px solid var(--card-border);
+            box-shadow: none;
+            color: var(--text-main);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(14, 116, 144, 0.1);
+            border-color: var(--card-border-hover);
+            box-shadow: 0 4px 12px rgba(14, 116, 144, 0.05);
+        }
+
+        .preference-panel {
+            background: rgba(2, 132, 199, 0.04);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .preference-panel h3 {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .preference-options {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--text-main);
+        }
+
+        .checkbox-label input {
+            accent-color: var(--primary);
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .section-label {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-muted);
+            text-align: center;
+            letter-spacing: 0.3px;
+        }
+
+        .alphabet-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .alphabet-button {
+            background: rgba(14, 116, 144, 0.03);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            border-radius: 10px;
+            padding: 12px 0;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .alphabet-button:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.3);
+        }
+
+        .output-wrapper {
+            display: none;
+            margin-top: 25px;
+            animation: fadeIn 0.35s ease forwards;
+        }
+
+        .main-hkid-display-box {
+            background: rgba(2, 132, 199, 0.06);
+            border: 1px solid rgba(2, 132, 199, 0.25);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .main-hkid-display-box:hover {
+            background: rgba(2, 132, 199, 0.1);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .main-hkid-display-box span {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .main-hkid-display-box h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: 2px;
+        }
+
+        .click-hint {
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: -12px;
+            margin-bottom: 20px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+        }
+
+        .info-card {
+            background: #ffffff;
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+        }
+
+        .info-card:hover {
+            background: #f8fafc;
+            border-color: var(--card-border-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.1);
+        }
+
+        .info-card p:first-child {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-card p:last-child {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .modal-content {
+            background: #ffffff;
+            border: 1px solid var(--card-border);
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 480px;
+            box-shadow: 0 25px 50px rgba(15, 23, 42, 0.15);
+        }
+
+        .modal-content h2 {
+            font-size: 1.3rem;
+            margin-bottom: 18px;
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-main);
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        .input-group label {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            display: block;
+            margin-bottom: 7px;
+        }
+
+        .modal-content input, .modal-content select {
+            width: 100%;
+            padding: 12px 16px;
+            background: #f8fafc;
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            color: var(--text-main);
+            font-size: 1.05rem;
+            outline: none;
+            transition: border-color 0.2s;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .modal-content input:focus, .modal-content select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+        }
+
+        .time-estimate {
+            background: rgba(2, 132, 199, 0.06);
+            border: 1px solid rgba(2, 132, 199, 0.2);
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .working-notice {
+            display: none;
+            background: linear-gradient(135deg, rgba(2, 132, 199, 0.1) 0%, rgba(56, 189, 248, 0.15) 100%);
+            border: 1px solid var(--primary);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            animation: pulseGlow 1.5s infinite alternate;
+        }
+
+        .working-notice i {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .working-notice h4 {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .working-notice p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        @keyframes pulseGlow {
+            from { box-shadow: 0 0 5px rgba(2, 132, 199, 0.2); }
+            to { box-shadow: 0 0 15px rgba(2, 132, 199, 0.4); }
+        }
+
+        .progress-box {
+            display: none;
+            margin-top: 15px;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .progress-bar-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), #38bdf8);
+            transition: width 0.1s linear;
+        }
+
+        .toast-container {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 2000;
+        }
+
+        .toast {
+            background: var(--primary);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 8px 25px rgba(2, 132, 199, 0.25);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideIn 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%) scale(0.9); opacity: 0; }
+            to { transform: translateX(0) scale(1); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .coffee-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #ffdd00;
+            color: #000;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 100;
+            text-decoration: none;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .coffee-button:hover {
+            transform: scale(1.03);
+        }
+
+        @media(max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .container { padding: 20px 15px; }
+            .main-hkid-display-box h2 { font-size: 1.8rem; }
+        }
     </style>
 </head>
 <body>
 
-    <h1>Generate Hong Kong ID</h1>
-    <div class="instructions">
-        <p>Select a letter from the options below to generate a unique HKID number.</p>
-        <p>Click on "Home" to return to the main page anytime.</p>
+    <header>
+        <h1>Hong Kong ID Generator</h1>
+        <p class="subtitle">Synthetic HKID test data engine & test record generator</p>
+    </header>
+
+    <div class="disclaimer-banner">
+        <i class="fa-solid fa-circle-info"></i>
+        <div class="disclaimer-content">
+            <h4>Sandbox Data Term</h4>
+            <p>Generated records are completely synthetic and randomized for QA test environments, schema validations, and software development workflows.</p>
+        </div>
     </div>
+
     <div class="container">
-        <button class="home-button" onclick="goHome()">Home</button>
-        <div class="alphabet-container">
-            <script>
-                function _0x3573(_0x519e40,_0x5bb3b9){const _0x4924c1=_0x4924();return _0x3573=function(_0x35736a,_0x1f679b){_0x35736a=_0x35736a-0x13d;let _0x4fa123=_0x4924c1[_0x35736a];return _0x4fa123;},_0x3573(_0x519e40,_0x5bb3b9);}const _0x26ab4b=_0x3573;(function(_0x29f969,_0x29146f){const _0x16d9dc=_0x3573,_0x133284=_0x29f969();while(!![]){try{const _0x3aeeae=-parseInt(_0x16d9dc(0x13f))/0x1+parseInt(_0x16d9dc(0x141))/0x2+parseInt(_0x16d9dc(0x14b))/0x3*(-parseInt(_0x16d9dc(0x13d))/0x4)+parseInt(_0x16d9dc(0x145))/0x5*(parseInt(_0x16d9dc(0x143))/0x6)+-parseInt(_0x16d9dc(0x147))/0x7*(-parseInt(_0x16d9dc(0x144))/0x8)+-parseInt(_0x16d9dc(0x14a))/0x9*(parseInt(_0x16d9dc(0x148))/0xa)+parseInt(_0x16d9dc(0x142))/0xb*(parseInt(_0x16d9dc(0x149))/0xc);if(_0x3aeeae===_0x29146f)break;else _0x133284['push'](_0x133284['shift']());}catch(_0x40e160){_0x133284['push'](_0x133284['shift']());}}}(_0x4924,0x879b9));const letters='ABCDEFGHJKLMNPQRSTUVWX';function _0x4924(){const _0x10d253=['8oIzAIh','5wfLfFp','</button>','1630727pLkRtr','6340ecRMMS','15276dPCAMI','954AHzfqu','172371sNUOyZ','64vqnxxW','\x27)\x22>','771324VyYUkB','<button\x20class=\x22alphabet-button\x22\x20onclick=\x22generateHKID(\x27','1214114XjNwVl','6963pkZckp','4004772BqKYwk'];_0x4924=function(){return _0x10d253;};return _0x4924();}for(let letter of letters){document['write'](_0x26ab4b(0x140)+letter+_0x26ab4b(0x13e)+letter+_0x26ab4b(0x146));}
-            </script>
+        <div class="nav-controls">
+            <button class="btn btn-secondary" onclick="resetApp()"><i class="fa-solid fa-house"></i> Home Dashboard</button>
+            <button class="btn" onclick="openBulkModal()"><i class="fa-solid fa-file-excel"></i> Bulk Export (Up to 1M)</button>
         </div>
-        <div class="loading" id="loading">
-            <div class="spinner"></div>
-            Generation in progress...
+
+        <div class="preference-panel">
+            <h3><i class="fa-solid fa-sliders"></i> HKSAR Bilingual Name Formatting Options</h3>
+            <div class="preference-options">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="showFullNameToggle" checked onchange="toggleChineseFullNamePreference()"> 
+                    Display Full Chinese Name Field
+                </label>
+                
+                <div class="radio-group" id="hksarOrderGroup">
+                    <span style="font-size:0.85rem; color:var(--text-muted); font-weight:600;">HKSAR Standard Order:</span>
+                    <label class="radio-label">
+                        <input type="radio" name="hksarOrder" value="surname-first" checked onchange="updateChineseNameFormatting()"> Surname + Given Name (e.g. 陳大文)
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="hksarOrder" value="given-first" onchange="updateChineseNameFormatting()"> Given Name + Surname (e.g. 大文陳)
+                    </label>
+                </div>
+            </div>
         </div>
-        <div id="hkidOutput" class="hkid-card" onclick="copyToClipboard(event, this, currentHKID)">
-            <span id="hkidText"></span>
+
+        <div class="section-label">Select Prefix Letter for Single Test Record Generation:</div>
+        <div class="alphabet-container" id="alphabetGrid"></div>
+
+        <div class="output-wrapper" id="outputWrapper">
+            <div class="main-hkid-display-box" onclick="copyToClipboard(currentHKID, 'HKID number copied to clipboard!')">
+                <span>Generated HKID Number</span>
+                <h2 id="cardHkidDisplay">A123456(7)</h2>
+            </div>
+            <div class="click-hint"><i class="fa-regular fa-hand-pointer"></i> Click box anywhere to copy HKID number</div>
+
+            <div class="info-grid" id="infoOutput"></div>
         </div>
-        <div id="infoOutput" class="info"></div>
     </div>
 
-    <div style="margin-top: 20px; text-align: center; font-size: 1em; color: white; background: rgba(0, 0, 0, 0.5); padding: 10px; border-radius: 10px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); position: fixed; bottom: 10px; right: 10px;"></div>
- 
-    </div>
+    <!-- Bulk Modal -->
+    <div class="modal-overlay" id="bulkModal">
+        <div class="modal-content">
+            <h2>Export Bulk HKID Dataset</h2>
+            
+            <div class="input-group">
+                <label for="bulkInput">Enter records needed (Max 1,000,000):</label>
+                <input type="number" id="bulkInput" min="1" max="1000000" value="5000" oninput="enforceLimitAndEstimate(this)">
+            </div>
 
-    <script>
-       const _0x4cf233=_0x457a;function _0x1c11(){const _0x183579=['\x27)\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p><strong\x20style=\x22color:\x20black;\x22>Chinese\x20First\x20Name:</strong></p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p><strong\x20style=\x22color:\x20purple;\x22>','color','Maria','Christopher','20px','3343200ixHydI','hkidOutput','translateX(-50%)','204580pzzxae','remove','491041cWYUkX','innerHTML','join','englishFirstName','Chan','Copied\x20to\x20clipboard!','writeText','borderRadius','Failed\x20to\x20copy:\x20','generateName','5px','Dorothy','floor','body','style','Brian','5DPUkRA','Robert','Charles','18uadkvt','zIndex','clipboard','Michael','Mary','toString','fromCharCode','block','left','1281548MYTkSV','Sany','Susan','slice','10px\x2020px','12MWjzkx','Joseph','James','Betty','\x27)\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p><strong\x20style=\x22color:\x20black;\x22>English\x20Last\x20Name:</strong></p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p><strong\x20style=\x22color:\x20purple;\x22>','Tang','hkidText','backgroundColor','fixed','5295700ZNwZVY','display','length','</strong></p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20','Patricia','getFullYear','position','</strong></p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22info-card\x22\x20onclick=\x22copyToClipboard(event,\x20this,\x20\x27','clientY','appendChild','random','Thomas','\x27)\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p><strong\x20style=\x22color:\x20black;\x22>Chinese\x20Last\x20Name:</strong></p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p><strong\x20style=\x22color:\x20purple;\x22>','Chess','\x27)\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p><strong\x20style=\x22color:\x20black;\x22>Date\x20of\x20Birth:</strong></p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p><strong\x20style=\x22color:\x20purple;\x22>','innerText','Jennifer','Andy','padding','\x27)\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p><strong\x20style=\x22color:\x20black;\x22>Gender:</strong></p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p><strong\x20style=\x22color:\x20purple;\x22>','Kwok','add','Yuen','Normann','Linda','thfDict','Richard','bottom','Donna','William','success-animation','white','Helen','Barbara','Elizabeth','Lam','David','reduce','infoOutput','padStart','getElementById','Liu','then','Nancy','loading','50%','Cheng','catch','Karen','Lisa','Cheung','\x27)\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p><strong\x20style=\x22color:\x20black;\x22>English\x20First\x20Name:</strong></p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p><strong\x20style=\x22color:\x20purple;\x22>','generateDOB','lastOne','transform','Wong','generateGender','2412669xfClMT','englishLastName','rgba(0,\x200,\x200,\x200.7)','Lee','Margaret','getBoundingClientRect','createElement','generateID','4394544FtAjyb','error','Sandra','chineseLastName','top','Chow','div','classList'];_0x1c11=function(){return _0x183579;};return _0x1c11();}(function(_0x239bac,_0x322edf){const _0x329220=_0x457a,_0x6f44a2=_0x239bac();while(!![]){try{const _0x218a61=parseInt(_0x329220(0xb0))/0x1+-parseInt(_0x329220(0xae))/0x2*(-parseInt(_0x329220(0xd1))/0x3)+-parseInt(_0x329220(0xcc))/0x4*(parseInt(_0x329220(0xc0))/0x5)+parseInt(_0x329220(0xab))/0x6+-parseInt(_0x329220(0x113))/0x7+parseInt(_0x329220(0x11b))/0x8+-parseInt(_0x329220(0xc3))/0x9*(parseInt(_0x329220(0xda))/0xa);if(_0x218a61===_0x322edf)break;else _0x6f44a2['push'](_0x6f44a2['shift']());}catch(_0x10658a){_0x6f44a2['push'](_0x6f44a2['shift']());}}}(_0x1c11,0x44f9d));class HKID{constructor(){const _0x40443e=_0x457a;this[_0x40443e(0xf3)]={};for(let _0x4869b9=0x0;_0x4869b9<0x1a;_0x4869b9++){this[_0x40443e(0xf3)][String[_0x40443e(0xc9)](0x41+_0x4869b9)]=_0x4869b9+0x1;}this[_0x40443e(0x10f)]={0x0:'0',0x1:'A'};}[_0x4cf233(0x11a)](_0x350e34){const _0x232b4f=_0x4cf233,_0x4c95d2=[_0x350e34,Math['floor'](Math[_0x232b4f(0xe4)]()*0xa),Math[_0x232b4f(0xbc)](Math[_0x232b4f(0xe4)]()*0xa),Math['floor'](Math[_0x232b4f(0xe4)]()*0xa),Math[_0x232b4f(0xbc)](Math[_0x232b4f(0xe4)]()*0xa),Math['floor'](Math['random']()*0xa),Math[_0x232b4f(0xbc)](Math['random']()*0xa),'?'],_0x5a4526=[this[_0x232b4f(0xf3)][_0x4c95d2[0x0]]*0x8,_0x4c95d2[0x1]*0x7,_0x4c95d2[0x2]*0x6,_0x4c95d2[0x3]*0x5,_0x4c95d2[0x4]*0x4,_0x4c95d2[0x5]*0x3,_0x4c95d2[0x6]*0x2],_0x1760f9=_0x5a4526[_0x232b4f(0xff)]((_0x3ccb0d,_0x3899cc)=>_0x3ccb0d+_0x3899cc,0x0)%0xb;return _0x4c95d2[0x7]=this[_0x232b4f(0x10f)][_0x1760f9]||(0xb-_0x1760f9)[_0x232b4f(0xc8)](),_0x4c95d2[_0x232b4f(0xcf)](0x0,0x7)[_0x232b4f(0xb2)]('')+'('+_0x4c95d2[0x7]+')';}[_0x4cf233(0xb9)](){const _0x9fa1a3=_0x4cf233,_0x3542b8=[_0x9fa1a3(0xbf),_0x9fa1a3(0xcd),_0x9fa1a3(0xf1),'Chess',_0x9fa1a3(0xeb),'Pierre','John',_0x9fa1a3(0xc6),_0x9fa1a3(0xfe),'James',_0x9fa1a3(0xc1),_0x9fa1a3(0xf7),_0x9fa1a3(0xf4),'Joseph','Thomas',_0x9fa1a3(0xc2),_0x9fa1a3(0xa9)],_0x46bee0=[_0x9fa1a3(0xc7),_0x9fa1a3(0xde),'Linda',_0x9fa1a3(0xfb),_0x9fa1a3(0xfc),_0x9fa1a3(0xea),_0x9fa1a3(0xa8),_0x9fa1a3(0xce),_0x9fa1a3(0x117),_0x9fa1a3(0xbb),_0x9fa1a3(0x10b),_0x9fa1a3(0x105),_0x9fa1a3(0x10a),'Betty','Helen',_0x9fa1a3(0xa0),_0x9fa1a3(0xf6)],_0x1550cf=[_0x9fa1a3(0xb4),_0x9fa1a3(0x10c),_0x9fa1a3(0x108),_0x9fa1a3(0xa3),'Fung','Ho',_0x9fa1a3(0xee),_0x9fa1a3(0xfd),_0x9fa1a3(0x116),'Leung',_0x9fa1a3(0x103),'Ng',_0x9fa1a3(0xd6),_0x9fa1a3(0x111),'Yip',_0x9fa1a3(0xf0)],_0x5e7890=Math['random']()<0.5,_0x251a92=_0x5e7890?_0x3542b8[Math[_0x9fa1a3(0xbc)](Math[_0x9fa1a3(0xe4)]()*_0x3542b8[_0x9fa1a3(0xdc)])]:_0x46bee0[Math[_0x9fa1a3(0xbc)](Math['random']()*_0x46bee0['length'])],_0x4b3661=_0x1550cf[Math['floor'](Math[_0x9fa1a3(0xe4)]()*_0x1550cf[_0x9fa1a3(0xdc)])],_0x414cca=['伟','芳','娜','静','强','磊','敏','丽','军','洋','勇','艳','杰','娟','涛','明','超','秀英','霞','平','刚','桂英'],_0x25576f=['陈','张','郑','周','方','冯','何','胡','黄','李','梁','林','刘','卢','马','吴','谢','杨','叶','余','曾','赵','钟'],_0x72b1d1=_0x414cca[Math[_0x9fa1a3(0xbc)](Math['random']()*_0x414cca[_0x9fa1a3(0xdc)])],_0x2dab26=_0x25576f[Math[_0x9fa1a3(0xbc)](Math[_0x9fa1a3(0xe4)]()*_0x25576f[_0x9fa1a3(0xdc)])];return{'englishFirstName':_0x251a92,'englishLastName':_0x4b3661,'chineseFirstName':_0x72b1d1,'chineseLastName':_0x2dab26};}[_0x4cf233(0x10e)](){const _0x1d5261=_0x4cf233,_0x26c9bf=new Date(),_0x443f2b=_0x26c9bf[_0x1d5261(0xdf)]()-Math[_0x1d5261(0xbc)](Math['random']()*0x1e+0x14),_0x3dde72=Math[_0x1d5261(0xbc)](Math[_0x1d5261(0xe4)]()*0xc)+0x1,_0xfc6d72=Math[_0x1d5261(0xbc)](Math[_0x1d5261(0xe4)]()*0x1c)+0x1;return _0x443f2b+'-'+String(_0x3dde72)[_0x1d5261(0x101)](0x2,'0')+'-'+String(_0xfc6d72)[_0x1d5261(0x101)](0x2,'0');}[_0x4cf233(0x112)](_0x4d7c00){const _0x4f0bd2=_0x4cf233,_0x19fc7f=[_0x4f0bd2(0xbf),_0x4f0bd2(0xcd),_0x4f0bd2(0xf1),_0x4f0bd2(0xe7),_0x4f0bd2(0xeb),'Pierre','John',_0x4f0bd2(0xc6),_0x4f0bd2(0xfe),_0x4f0bd2(0xd3),_0x4f0bd2(0xc1),_0x4f0bd2(0xf7),_0x4f0bd2(0xf4),_0x4f0bd2(0xd2),_0x4f0bd2(0xe5),_0x4f0bd2(0xc2),_0x4f0bd2(0xa9)],_0x128bc5=[_0x4f0bd2(0xc7),'Patricia',_0x4f0bd2(0xf2),_0x4f0bd2(0xfb),_0x4f0bd2(0xfc),_0x4f0bd2(0xea),_0x4f0bd2(0xa8),_0x4f0bd2(0xce),_0x4f0bd2(0x117),_0x4f0bd2(0xbb),_0x4f0bd2(0x10b),_0x4f0bd2(0x105),'Karen',_0x4f0bd2(0xd4),_0x4f0bd2(0xfa),_0x4f0bd2(0xa0),_0x4f0bd2(0xf6)];return _0x19fc7f['includes'](_0x4d7c00[_0x4f0bd2(0xb3)])?'M':'F';}}let currentHKID='';function generateHKID(_0x5b7e00){const _0xcd0a00=_0x4cf233;document['getElementById'](_0xcd0a00(0xd7))[_0xcd0a00(0xe9)]='',document[_0xcd0a00(0x102)](_0xcd0a00(0x100))[_0xcd0a00(0xb1)]='';const _0x535b2a=document[_0xcd0a00(0x102)](_0xcd0a00(0x106));_0x535b2a[_0xcd0a00(0xbe)]['display']=_0xcd0a00(0xca);const _0x50e3da=new HKID();currentHKID=_0x50e3da[_0xcd0a00(0x11a)](_0x5b7e00);const _0x33b3e8=_0x50e3da[_0xcd0a00(0xb9)](),_0x217fad=_0x50e3da[_0xcd0a00(0x10e)](),_0x4d20d3=_0x50e3da[_0xcd0a00(0x112)](_0x33b3e8);setTimeout(()=>{const _0x2b9ea1=_0xcd0a00;_0x535b2a['style'][_0x2b9ea1(0xdb)]='none',document[_0x2b9ea1(0x102)](_0x2b9ea1(0xd7))[_0x2b9ea1(0xe9)]=''+currentHKID,document['getElementById'](_0x2b9ea1(0xac))[_0x2b9ea1(0xbe)][_0x2b9ea1(0xdb)]=_0x2b9ea1(0xca),document[_0x2b9ea1(0x102)](_0x2b9ea1(0x100))[_0x2b9ea1(0xb1)]='\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22info-card\x22\x20onclick=\x22copyToClipboard(event,\x20this,\x20\x27'+_0x33b3e8[_0x2b9ea1(0xb3)]+_0x2b9ea1(0x10d)+_0x33b3e8[_0x2b9ea1(0xb3)]+'</strong></p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22info-card\x22\x20onclick=\x22copyToClipboard(event,\x20this,\x20\x27'+_0x33b3e8['englishLastName']+_0x2b9ea1(0xd5)+_0x33b3e8[_0x2b9ea1(0x114)]+_0x2b9ea1(0xe1)+_0x33b3e8['chineseFirstName']+_0x2b9ea1(0xa6)+_0x33b3e8['chineseFirstName']+'</strong></p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22info-card\x22\x20onclick=\x22copyToClipboard(event,\x20this,\x20\x27'+_0x33b3e8[_0x2b9ea1(0xa1)]+_0x2b9ea1(0xe6)+_0x33b3e8[_0x2b9ea1(0xa1)]+_0x2b9ea1(0xe1)+_0x217fad+_0x2b9ea1(0xe8)+_0x217fad+_0x2b9ea1(0xe1)+_0x4d20d3+_0x2b9ea1(0xed)+_0x4d20d3+_0x2b9ea1(0xdd);},0x12c);}function copyToClipboard(_0x17b8c1,_0x421bde,_0x3c03e3){const _0x5b1604=_0x4cf233;_0x17b8c1['preventDefault'](),navigator[_0x5b1604(0xc5)][_0x5b1604(0xb6)](_0x3c03e3)[_0x5b1604(0x104)](()=>{const _0x2af4f4=_0x5b1604;createRipple(_0x17b8c1,_0x421bde),animateSuccess(_0x421bde),showNotification(_0x2af4f4(0xb5));})[_0x5b1604(0x109)](_0x1eb5dc=>{const _0x1d80d4=_0x5b1604;console[_0x1d80d4(0x9f)](_0x1d80d4(0xb8),_0x1eb5dc);});}function _0x457a(_0x34812d,_0xf16b35){const _0x1c11e1=_0x1c11();return _0x457a=function(_0x457a32,_0x36b903){_0x457a32=_0x457a32-0x9f;let _0x195b8b=_0x1c11e1[_0x457a32];return _0x195b8b;},_0x457a(_0x34812d,_0xf16b35);}function showNotification(_0x596c09){const _0x296cf4=_0x4cf233,_0x14e3da=document['createElement'](_0x296cf4(0xa4));_0x14e3da[_0x296cf4(0xe9)]=_0x596c09,_0x14e3da[_0x296cf4(0xbe)][_0x296cf4(0xe0)]=_0x296cf4(0xd9),_0x14e3da[_0x296cf4(0xbe)][_0x296cf4(0xf5)]=_0x296cf4(0xaa),_0x14e3da[_0x296cf4(0xbe)][_0x296cf4(0xcb)]=_0x296cf4(0x107),_0x14e3da[_0x296cf4(0xbe)][_0x296cf4(0x110)]=_0x296cf4(0xad),_0x14e3da[_0x296cf4(0xbe)][_0x296cf4(0xd8)]=_0x296cf4(0x115),_0x14e3da['style'][_0x296cf4(0xa7)]=_0x296cf4(0xf9),_0x14e3da[_0x296cf4(0xbe)][_0x296cf4(0xec)]=_0x296cf4(0xd0),_0x14e3da[_0x296cf4(0xbe)][_0x296cf4(0xb7)]=_0x296cf4(0xba),_0x14e3da[_0x296cf4(0xbe)]['boxShadow']='0\x204px\x2020px\x20rgba(0,\x200,\x200,\x200.5)',_0x14e3da['style'][_0x296cf4(0xc4)]='1000',document[_0x296cf4(0xbd)][_0x296cf4(0xe3)](_0x14e3da),setTimeout(()=>{const _0x14e0f6=_0x296cf4;_0x14e3da[_0x14e0f6(0xaf)]();},0x1f4);}function createRipple(_0x28c5fa,_0x1dbc3a){const _0x474a4a=_0x4cf233,_0x4cfcac=document[_0x474a4a(0x119)]('span');_0x4cfcac[_0x474a4a(0xa5)]['add']('ripple'),_0x1dbc3a[_0x474a4a(0xe3)](_0x4cfcac);const _0x20ded9=_0x1dbc3a[_0x474a4a(0x118)](),_0xb53409=_0x28c5fa['clientX']-_0x20ded9[_0x474a4a(0xcb)],_0x297538=_0x28c5fa[_0x474a4a(0xe2)]-_0x20ded9[_0x474a4a(0xa2)];_0x4cfcac[_0x474a4a(0xbe)][_0x474a4a(0xcb)]=_0xb53409+'px',_0x4cfcac[_0x474a4a(0xbe)]['top']=_0x297538+'px',setTimeout(()=>{const _0x4a84b3=_0x474a4a;_0x4cfcac[_0x4a84b3(0xaf)]();},0x258);}function animateSuccess(_0x4aa26c){const _0x48c89e=_0x4cf233;_0x4aa26c[_0x48c89e(0xa5)][_0x48c89e(0xef)]('success-animation'),setTimeout(()=>{const _0x52acc8=_0x48c89e;_0x4aa26c[_0x52acc8(0xa5)][_0x52acc8(0xaf)](_0x52acc8(0xf8));},0x1f4);}function goHome(){window['location']['reload']();}
-    </script>
+            <div class="input-group">
+                <label class="checkbox-label" style="margin-bottom:8px;">
+                    <input type="checkbox" id="bulkIncludeFullName" checked> Include Full Chinese Name in Export
+                </label>
+                <label for="bulkNameOrder">HKSAR Chinese Name Standard Order:</label>
+                <select id="bulkNameOrder">
+                    <option value="surname-first">Surname First (e.g., 陳大文)</option>
+                    <option value="given-first">Given Name First (e.g., 大文陳)</option>
+                </select>
+            </div>
 
-    <button class="bulk-button" onclick="showBulkPopup()">Generate HKID data in BULK</button>
+            <!-- Beautiful Working Notification Box -->
+            <div class="working-notice" id="workingNotice">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                <h4 id="workingTitle">We are working on it!</h4>
+                <p id="workingSubtitle">Your dataset will be available in just a few seconds (~0.00s elapsed).</p>
+            </div>
 
-    <div id="bulkPopup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); z-index: 1000; width: 300px; animation: fadeInPopup 0.3s ease-in-out;">
-        <h2 style="margin-top: 0; color: black; font-size: medium; text-align: center;">Generate HKID data in BULK</h2>
-        <label for="bulkAmountInput" style="color: black; font-size: medium;">Enter how much data you need (max 100000):</label>
-        <input type="number" id="bulkAmountInput" min="1" max="100000" inputmode="numeric" style="width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box;">
-        <div style="display: flex; justify-content: space-between; margin-top: 10px;"></div>
-            <button onclick="generateBulkHKID()" style="padding: 10px 15px; background-color: purple; color: white; border: none; border-radius: 5px; cursor: pointer; flex: 1; margin-right: 5px;">Generate</button>
-            <button onclick="closeBulkPopup()" style="padding: 10px 15px; background-color: gray; color: white; border: none; border-radius: 5px; cursor: pointer; flex: 1; margin-left: 5px;">Cancel</button>
+            <div class="time-estimate" id="estimateBox">
+                <i class="fa-solid fa-bolt"></i>
+                <span id="estimateText">Request will process in seconds (~0.00s)</span>
+            </div>
+
+            <div class="progress-box" id="progressBox">
+                <div style="display:flex; justify-content:space-between; font-size:0.82rem; color:var(--text-muted);">
+                    <span id="progressText">Processing batch...</span>
+                    <span id="progressPercent">0%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progressBarFill"></div>
+                </div>
+            </div>
+
+            <p id="bulkError" style="color: #ef4444; font-size: 0.82rem; display: none; margin-bottom: 10px;">Limit enforced: Value must be between 1 and 1,000,000.</p>
+            
+            <div style="display:flex; gap:10px; margin-top:12px;" id="modalActionButtons">
+                <button class="btn" id="startBtn" style="flex:1; justify-content:center;" onclick="generateBulkDataset()">Generate Dataset</button>
+                <button class="btn btn-secondary" id="cancelBtn" style="flex:1; justify-content:center;" onclick="closeBulkModal()">Cancel</button>
+            </div>
         </div>
-        <p id="bulkError" style="color: red; display: none; text-align: center; margin-top: 10px;">Invalid input</p>
     </div>
 
-    <div id="bulkLoading" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0, 0, 0, 0.7); padding: 20px; border-radius: 10px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); z-index: 1000; width: 300px; text-align: center;">
-        <div class="spinner"></div>
-        <p style="color: white; margin-top: 10px;">Generating HKID data...</p>
-    </div>
+    <div class="toast-container" id="toastContainer"></div>
 
-    <style>
-      @keyframes fadeInPopup{0%{opacity:0;transform:translate(-50%,-60%)}to{opacity:1;transform:translate(-50%,-50%)}}
-    </style>
+    <a href="https://buymeacoffee.com/sivadasari" target="_blank" class="coffee-button">
+        <span>☕</span> Buy me a coffee
+    </a>
 
+    <!-- SheetJS for XLSX Generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
-    <script>
-       (function(_0x1d1f6b,_0x33c07f){const _0x12ebdb=_0x5cad,_0x47665a=_0x1d1f6b();while(!![]){try{const _0x14f2b6=parseInt(_0x12ebdb(0x1ce))/0x1+-parseInt(_0x12ebdb(0x1d6))/0x2+parseInt(_0x12ebdb(0x1dd))/0x3+-parseInt(_0x12ebdb(0x1c7))/0x4+-parseInt(_0x12ebdb(0x1ca))/0x5+parseInt(_0x12ebdb(0x1b8))/0x6+parseInt(_0x12ebdb(0x1d8))/0x7*(parseInt(_0x12ebdb(0x1c0))/0x8);if(_0x14f2b6===_0x33c07f)break;else _0x47665a['push'](_0x47665a['shift']());}catch(_0x198f3f){_0x47665a['push'](_0x47665a['shift']());}}}(_0x3a75,0xe1a25));function showBulkPopup(){const _0xc4cd7a=_0x5cad;document[_0xc4cd7a(0x1c8)](_0xc4cd7a(0x1c6))[_0xc4cd7a(0x1ba)][_0xc4cd7a(0x1d3)]='block';}function closeBulkPopup(){const _0x4be429=_0x5cad;document[_0x4be429(0x1c8)]('bulkPopup')['style'][_0x4be429(0x1d3)]='none';}function generateBulkHKID(){const _0x1b8373=_0x5cad,_0x1935bb=document['getElementById'](_0x1b8373(0x1cc)),_0x5129e5=parseInt(_0x1935bb[_0x1b8373(0x1d0)]),_0x56c322=document[_0x1b8373(0x1c8)]('bulkError');if(isNaN(_0x5129e5)||_0x5129e5<0x1||_0x5129e5>0x186a0){_0x56c322[_0x1b8373(0x1ba)][_0x1b8373(0x1d3)]=_0x1b8373(0x1c2);return;}_0x56c322[_0x1b8373(0x1ba)][_0x1b8373(0x1d3)]=_0x1b8373(0x1d4),document['getElementById'](_0x1b8373(0x1c6))['style'][_0x1b8373(0x1d3)]=_0x1b8373(0x1d4),document[_0x1b8373(0x1c8)]('bulkLoading')['style']['display']=_0x1b8373(0x1c2);const _0x350d77=new HKID(),_0x6f814=[],_0x281497=new Set(),_0xbcb3db=Math['floor'](_0x5129e5/0x2);for(let _0x44ad03=0x0;_0x44ad03<_0x5129e5;_0x44ad03++){let _0x4c6cc2;do{const _0x2d54ba=_0x1b8373(0x1d5)[_0x1b8373(0x1c1)](Math['floor'](Math[_0x1b8373(0x1c9)]()*0x14));_0x4c6cc2=_0x350d77[_0x1b8373(0x1c3)](_0x2d54ba);}while(_0x281497[_0x1b8373(0x1c5)](_0x4c6cc2));_0x281497[_0x1b8373(0x1be)](_0x4c6cc2);const _0x240360=_0x350d77[_0x1b8373(0x1bf)](),_0x3e4de6=_0x350d77['generateDOB'](),_0x114efc=_0x350d77[_0x1b8373(0x1bc)](_0x240360);_0x6f814[_0x1b8373(0x1d1)]({'Number':_0x44ad03+0x1,'HKID':_0x4c6cc2,'EnglishFirstName':_0x240360[_0x1b8373(0x1cb)],'EnglishLastName':_0x240360[_0x1b8373(0x1c4)],'ChineseFirstName':_0x240360[_0x1b8373(0x1dc)],'ChineseLastName':_0x240360['chineseLastName'],'DOB':_0x3e4de6,'Gender':_0x114efc});}setTimeout(()=>{const _0x346721=_0x1b8373;exportToXLSX(_0x6f814,_0x5129e5),document[_0x346721(0x1c8)]('bulkLoading')[_0x346721(0x1ba)]['display']='none';},0xbb8);}function _0x5cad(_0x53df23,_0x3fa8ed){const _0x3a75a7=_0x3a75();return _0x5cad=function(_0x5cad6a,_0x20cddf){_0x5cad6a=_0x5cad6a-0x1b8;let _0x34536d=_0x3a75a7[_0x5cad6a];return _0x34536d;},_0x5cad(_0x53df23,_0x3fa8ed);}function _0x3a75(){const _0x286735=['2248HpWmOx','charAt','block','generateID','englishLastName','has','bulkPopup','1482060EdkRKy','getElementById','random','7760390SRzHYE','englishFirstName','bulkAmountInput','encode_cell','1624054XeEtXM','decode_range','value','push','FFFFFF','display','none','ABCDEFGHJKLMNPQRSTUVWX','2776906GkpJxQ','json_to_sheet','15001JqsKsm','utils','writeFile','hkid_data_','chineseFirstName','5214186xAqZHi','1625664QoEnzS','!ref','style','800080','generateGender','.xlsx','add','generateName'];_0x3a75=function(){return _0x286735;};return _0x3a75();}function exportToXLSX(_0x37b842,_0x55c22b){const _0x26eef4=_0x5cad,_0x9f0dfb=XLSX[_0x26eef4(0x1d9)][_0x26eef4(0x1d7)](_0x37b842),_0x5d8728=XLSX['utils']['book_new']();XLSX[_0x26eef4(0x1d9)]['book_append_sheet'](_0x5d8728,_0x9f0dfb,'HKID\x20Data');const _0x290326=XLSX['utils'][_0x26eef4(0x1cf)](_0x9f0dfb[_0x26eef4(0x1b9)]);for(let _0x144ce8=_0x290326['s']['c'];_0x144ce8<=_0x290326['e']['c'];++_0x144ce8){const _0xbf0a41=XLSX[_0x26eef4(0x1d9)][_0x26eef4(0x1cd)]({'r':0x0,'c':_0x144ce8});if(!_0x9f0dfb[_0xbf0a41])continue;_0x9f0dfb[_0xbf0a41]['s']={'fill':{'fgColor':{'rgb':_0x26eef4(0x1bb)}},'font':{'color':{'rgb':_0x26eef4(0x1d2)},'bold':!![]}};}const _0x1ce86b=_0x26eef4(0x1db)+_0x55c22b+_0x26eef4(0x1bd);XLSX[_0x26eef4(0x1da)](_0x5d8728,_0x1ce86b);}
-    </script>
 
+    <script>
+        const letters = 'ABCDEFGHJKLMNPQRSTUVWX';
+        let currentHKID = '';
+        let currentProfile = null;
+
+        const grid = document.getElementById('alphabetGrid');
+        for (let letter of letters) {
+            const btn = document.createElement('button');
+            btn.className = 'alphabet-button';
+            btn.innerText = letter;
+            btn.onclick = () => generateSingleHKID(letter);
+            grid.appendChild(btn);
+        }
+
+        class HKIDEngine {
+            constructor() {
+                this.weights = {};
+                for (let i = 0; i < 26; i++) {
+                    this.weights[String.fromCharCode(65 + i)] = i + 1;
+                }
+            }
+
+            createID(prefix) {
+                const p = prefix || letters[Math.floor(Math.random() * letters.length)];
+                const d1 = Math.floor(Math.random() * 10);
+                const d2 = Math.floor(Math.random() * 10);
+                const d3 = Math.floor(Math.random() * 10);
+                const d4 = Math.floor(Math.random() * 10);
+                const d5 = Math.floor(Math.random() * 10);
+                const d6 = Math.floor(Math.random() * 10);
+
+                const sum = (this.weights[p] * 8) + (d1 * 7) + (d2 * 6) + (d3 * 5) + (d4 * 4) + (d5 * 3) + (d6 * 2);
+                const rem = sum % 11;
+                const check = rem === 0 ? '0' : rem === 1 ? 'A' : (11 - rem).toString();
+
+                return `${p}${d1}${d2}${d3}${d4}${d5}${d6}(${check})`;
+            }
+
+            createProfile() {
+                const fn = ['John', 'David', 'Michael', 'Chris', 'James', 'Mary', 'Jennifer', 'Linda', 'Sarah', 'Karen'];
+                const ln = ['Chan', 'Wong', 'Lee', 'Cheung', 'Ng', 'Liu', 'Leung', 'Ho', 'Kwok', 'Lam'];
+                const cfn = ['伟', '芳', '娜', '静', '强', '磊', '敏', '丽', '军', '洋'];
+                const cln = ['陈', '张', '郑', '周', '方', '何', '黄', '李', '梁', '刘'];
+
+                const f = fn[Math.floor(Math.random() * fn.length)];
+                const l = ln[Math.floor(Math.random() * ln.length)];
+                const year = new Date().getFullYear() - Math.floor(Math.random() * 40 + 18);
+                const month = String(Math.floor(Math.random() * 12) + 1).padStart(2, '0');
+                const day = String(Math.floor(Math.random() * 28) + 1).padStart(2, '0');
+
+                return {
+                    enFirstName: f,
+                    enLastName: l,
+                    cnGivenName: cfn[Math.floor(Math.random() * cfn.length)],
+                    cnSurname: cln[Math.floor(Math.random() * cln.length)],
+                    dob: `${year}-${month}-${day}`,
+                    gender: ['John', 'David', 'Michael', 'Chris', 'James'].includes(f) ? 'M' : 'F'
+                };
+            }
+        }
+
+        const engine = new HKIDEngine();
+
+        function generateSingleHKID(letter) {
+            currentHKID = engine.createID(letter);
+            currentProfile = engine.createProfile();
+            renderProfileDetails();
+            document.getElementById('outputWrapper').style.display = 'block';
+            showToast(`Generated record with prefix [${letter}]!`);
+        }
+
+        function renderProfileDetails() {
+            if (!currentProfile) return;
+            
+            const showFullName = document.getElementById('showFullNameToggle').checked;
+            const orderOption = document.querySelector('input[name="hksarOrder"]:checked').value;
+            
+            const fullCnName = orderOption === 'surname-first' 
+                ? `${currentProfile.cnSurname}${currentProfile.cnGivenName}` 
+                : `${currentProfile.cnGivenName}${currentProfile.cnSurname}`;
+
+            document.getElementById('cardHkidDisplay').innerText = currentHKID;
+
+            let gridHTML = `
+                <div class="info-card" onclick="copyToClipboard('${currentProfile.enFirstName}', 'First Name copied!')">
+                    <p>English First Name</p>
+                    <p>${currentProfile.enFirstName}</p>
+                </div>
+                <div class="info-card" onclick="copyToClipboard('${currentProfile.enLastName}', 'Last Name copied!')">
+                    <p>English Last Name</p>
+                    <p>${currentProfile.enLastName}</p>
+                </div>
+                <div class="info-card" onclick="copyToClipboard('${currentProfile.cnSurname}', 'Chinese Surname copied!')">
+                    <p>Chinese Surname</p>
+                    <p>${currentProfile.cnSurname}</p>
+                </div>
+                <div class="info-card" onclick="copyToClipboard('${currentProfile.cnGivenName}', 'Chinese Given Name copied!')">
+                    <p>Chinese Given Name</p>
+                    <p>${currentProfile.cnGivenName}</p>
+                </div>
+            `;
+
+            if (showFullName) {
+                gridHTML += `
+                    <div class="info-card" onclick="copyToClipboard('${fullCnName}', 'Full Chinese Name copied!')">
+                        <p>Full Chinese Name (HKSAR Standard)</p>
+                        <p>${fullCnName}</p>
+                    </div>
+                `;
+            }
+
+            gridHTML += `
+                <div class="info-card" onclick="copyToClipboard('${currentProfile.dob}', 'Date of Birth copied!')">
+                    <p>Date of Birth</p>
+                    <p>${currentProfile.dob}</p>
+                </div>
+                <div class="info-card" onclick="copyToClipboard('${currentProfile.gender}', 'Gender copied!')">
+                    <p>Gender</p>
+                    <p>${currentProfile.gender}</p>
+                </div>
+            `;
+
+            document.getElementById('infoOutput').innerHTML = gridHTML;
+        }
+
+        function toggleChineseFullNamePreference() {
+            const isChecked = document.getElementById('showFullNameToggle').checked;
+            document.getElementById('hksarOrderGroup').style.display = isChecked ? 'flex' : 'none';
+            if (currentProfile) {
+                renderProfileDetails();
+                showToast(isChecked ? 'Enabled full Chinese name view' : 'Hidden full Chinese name view');
+            }
+        }
+
+        function updateChineseNameFormatting() {
+            if (currentProfile) {
+                renderProfileDetails();
+                showToast('Updated HKSAR Chinese name format order');
+            }
+        }
+
+        function enforceLimitAndEstimate(inputElement) {
+            let val = parseInt(inputElement.value);
+            const err = document.getElementById('bulkError');
+            const text = document.getElementById('estimateText');
+
+            if (isNaN(val) || val < 1) {
+                inputElement.value = 1;
+                val = 1;
+            } else if (val > 1000000) {
+                inputElement.value = 1000000;
+                val = 1000000;
+                err.style.display = 'block';
+                setTimeout(() => err.style.display = 'none', 3000);
+            } else {
+                err.style.display = 'none';
+            }
+
+            const estimatedSec = (val / 180000).toFixed(2);
+            text.innerText = `Request will process in seconds (~${estimatedSec}s)`;
+        }
+
+        function openBulkModal() {
+            const input = document.getElementById('bulkInput');
+            enforceLimitAndEstimate(input);
+            document.getElementById('workingNotice').style.display = 'none';
+            document.getElementById('estimateBox').style.display = 'flex';
+            document.getElementById('progressBox').style.display = 'none';
+            document.getElementById('modalActionButtons').style.display = 'flex';
+            document.getElementById('bulkModal').style.display = 'flex';
+        }
+
+        function closeBulkModal() {
+            document.getElementById('bulkModal').style.display = 'none';
+        }
+
+        function showToast(message) {
+            const container = document.getElementById('toastContainer');
+            container.innerHTML = '';
+            
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${message}`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 250);
+            }, 2300);
+        }
+
+        function copyToClipboard(text, message) {
+            navigator.clipboard.writeText(text).then(() => showToast(message));
+        }
+
+        function resetApp() {
+            document.getElementById('outputWrapper').style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            showToast('Returned to home dashboard');
+        }
+
+        // Optimized Non-Blocking Bulk Dataset Generator
+        function generateBulkDataset() {
+            const inputField = document.getElementById('bulkInput');
+            let target = parseInt(inputField.value);
+            const includeFullName = document.getElementById('bulkIncludeFullName').checked;
+            const orderOption = document.getElementById('bulkNameOrder').value;
+
+            if (isNaN(target) || target < 1) target = 1;
+            if (target > 1000000) target = 1000000;
+            inputField.value = target;
+
+            const workingNotice = document.getElementById('workingNotice');
+            const workingSubtitle = document.getElementById('workingSubtitle');
+            workingNotice.style.display = 'block';
+            document.getElementById('estimateBox').style.display = 'none';
+            document.getElementById('modalActionButtons').style.display = 'none';
+            
+            const progressBox = document.getElementById('progressBox');
+            const progressBarFill = document.getElementById('progressBarFill');
+            const progressPercent = document.getElementById('progressPercent');
+            const progressText = document.getElementById('progressText');
+            progressBox.style.display = 'block';
+
+            const startTime = performance.now();
+            const data = [];
+            const chunkSize = 50000; 
+            let currentIndex = 0;
+
+            const fnList = ['John', 'David', 'Michael', 'Chris', 'James', 'Mary', 'Jennifer', 'Linda', 'Sarah', 'Karen'];
+            const lnList = ['Chan', 'Wong', 'Lee', 'Cheung', 'Ng', 'Liu', 'Leung', 'Ho', 'Kwok', 'Lam'];
+            const cfnList = ['伟', '芳', '娜', '静', '强', '磊', '敏', '丽', '军', '洋'];
+            const clnList = ['陈', '张', '郑', '周', '方', '何', '黄', '李', '梁', '刘'];
+
+            function processChunk() {
+                const chunkEnd = Math.min(currentIndex + chunkSize, target);
+                
+                for (let i = currentIndex; i < chunkEnd; i++) {
+                    const prefix = letters[Math.floor(Math.random() * letters.length)];
+                    const hkid = engine.createID(prefix);
+                    
+                    const f = fnList[Math.floor(Math.random() * fnList.length)];
+                    const l = lnList[Math.floor(Math.random() * lnList.length)];
+                    const cfn = cfnList[Math.floor(Math.random() * cfnList.length)];
+                    const cln = clnList[Math.floor(Math.random() * clnList.length)];
+                    const year = 1980 + Math.floor(Math.random() * 30);
+                    const month = String(Math.floor(Math.random() * 12) + 1).padStart(2, '0');
+                    const day = String(Math.floor(Math.random() * 28) + 1).padStart(2, '0');
+                    
+                    const row = {
+                        "HKID Number": hkid,
+                        "English First Name": f,
+                        "English Last Name": l,
+                        "Chinese Surname": cln,
+                        "Chinese Given Name": cfn,
+                    };
+
+                    if (includeFullName) {
+                        row["Full Chinese Name"] = orderOption === 'surname-first' 
+                            ? `${cln}${cfn}` 
+                            : `${cfn}${cln}`;
+                    }
+
+                    row["Date of Birth"] = `${year}-${month}-${day}`;
+                    row["Gender"] = ['John', 'David', 'Michael', 'Chris', 'James'].includes(f) ? 'M' : 'F';
+                    
+                    data.push(row);
+                }
+
+                currentIndex = chunkEnd;
+                const percent = Math.round((currentIndex / target) * 100);
+                
+                progressBarFill.style.width = `${percent}%`;
+                progressPercent.innerText = `${percent}%`;
+                const elapsedSec = ((performance.now() - startTime) / 1000).toFixed(1);
+                workingSubtitle.innerText = `Generating records... ~${elapsedSec}s elapsed`;
+                progressText.innerText = `Processed ${currentIndex.toLocaleString()} / ${target.toLocaleString()} rows`;
+
+                if (currentIndex < target) {
+                    setTimeout(processChunk, 0);
+                } else {
+                    progressText.innerText = `Compiling Excel file (.xlsx)...`;
+                    setTimeout(() => {
+                        try {
+                            const worksheet = XLSX.utils.json_to_sheet(data);
+                            const workbook = XLSX.utils.book_new();
+                            XLSX.utils.book_append_sheet(workbook, worksheet, "HKID_Dataset");
+                            
+                            const totalTime = ((performance.now() - startTime) / 1000).toFixed(2);
+                            XLSX.writeFile(workbook, `HKID_Test_Dataset_${target}_records.xlsx`);
+                            
+                            closeBulkModal();
+                            showToast(`Successfully exported ${target.toLocaleString()} records in ${totalTime}s!`);
+                        } catch (err) {
+                            console.error(err);
+                            alert("Export failed: " + err.message);
+                            closeBulkModal();
+                        }
+                    }, 50);
+                }
+            }
+
+            setTimeout(processChunk, 10);
+        }
+    </script>
 </body>
 </html>
