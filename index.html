@@ -373,7 +373,7 @@
             padding: 30px;
             border-radius: 20px;
             width: 90%;
-            max-width: 480px;
+            max-width: 520px;
             box-shadow: 0 25px 50px rgba(15, 23, 42, 0.15);
         }
 
@@ -411,6 +411,26 @@
         .modal-content input:focus, .modal-content select:focus {
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+        }
+
+        .desktop-warning {
+            display: none;
+            background: rgba(245, 158, 11, 0.08);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 12px;
+            padding: 12px 14px;
+            font-size: 0.82rem;
+            color: #b45309;
+            margin-bottom: 16px;
+            gap: 10px;
+            align-items: flex-start;
+            line-height: 1.4;
+        }
+
+        .desktop-warning i {
+            font-size: 1.1rem;
+            margin-top: 2px;
+            flex-shrink: 0;
         }
 
         .time-estimate {
@@ -611,7 +631,15 @@
             
             <div class="input-group" id="inputGroupContainer">
                 <label for="bulkInput" id="bulkInputLabel">Enter records needed (Max 1,000,000):</label>
-                <input type="number" id="bulkInput" min="1" max="1000000" value="5000" oninput="enforceLimitAndEstimate(this)">
+                <input type="number" id="bulkInput" min="1" max="1000000" value="50000" oninput="enforceLimitAndEstimate(this)">
+            </div>
+
+            <!-- Smart Technical Desktop Recommendation Warning Banner -->
+            <div class="desktop-warning" id="desktopWarning">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <div>
+                    <strong>High Volume Performance Notice:</strong> For large datasets (>50,000 records), we strongly recommend using a desktop or laptop browser. Mobile browsers enforce strict per-tab RAM limits and aggressive garbage collection that can trigger browser crashes or out-of-memory errors when processing massive datasets.
+                </div>
             </div>
 
             <div class="input-group" id="optionsGroupContainer">
@@ -623,18 +651,23 @@
                     <option value="surname-first">Surname First (e.g., 陳大文)</option>
                     <option value="given-first">Given Name First (e.g., 大文陳)</option>
                 </select>
+                <label for="exportFormat" style="margin-top:10px;">Export Format:</label>
+                <select id="exportFormat">
+                    <option value="csv">CSV (Recommended for 100K+ / Mobile)</option>
+                    <option value="xlsx">Excel (.xlsx)</option>
+                </select>
             </div>
 
             <!-- Beautiful Working Notification Box -->
             <div class="working-notice" id="workingNotice">
                 <i class="fa-solid fa-spinner fa-spin"></i>
                 <h4 id="workingTitle">We are working on it!</h4>
-                <p id="workingSubtitle">Your dataset will be available in just a few seconds (~0.00s elapsed).</p>
+                <p id="workingSubtitle">Your dataset will be available in just a few seconds.</p>
             </div>
 
             <div class="time-estimate" id="estimateBox">
                 <i class="fa-solid fa-bolt"></i>
-                <span id="estimateText">Request will process in seconds (~0.00s)</span>
+                <span id="estimateText">Request will process in seconds</span>
             </div>
 
             <div class="progress-box" id="progressBox">
@@ -651,7 +684,7 @@
             <div id="mobileDownloadContainer" style="display:none; text-align:center; margin-top:15px;">
                 <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">Dataset ready! Tap below to save your file:</p>
                 <a id="manualDownloadBtn" href="#" class="btn btn-success" style="width:100%; margin-bottom:10px;">
-                    <i class="fa-solid fa-cloud-arrow-down"></i> Download Excel File (.xlsx)
+                    <i class="fa-solid fa-cloud-arrow-down"></i> Download Dataset File
                 </a>
                 <button class="btn btn-secondary" style="width:100%; justify-content:center;" onclick="openBulkModal()">Generate Another</button>
             </div>
@@ -679,9 +712,7 @@
         let currentHKID = '';
         let currentProfile = null;
 
-        // Detect if user is on a mobile device
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        const MAX_MOBILE_LIMIT = 50000; // Safe threshold for mobile memory
 
         const grid = document.getElementById('alphabetGrid');
         for (let letter of letters) {
@@ -823,8 +854,9 @@
             let val = parseInt(inputElement.value);
             const err = document.getElementById('bulkError');
             const text = document.getElementById('estimateText');
+            const desktopWarning = document.getElementById('desktopWarning');
 
-            const absoluteMax = isMobile ? MAX_MOBILE_LIMIT : 1000000;
+            const absoluteMax = 1000000;
 
             if (isNaN(val) || val < 1) {
                 inputElement.value = 1;
@@ -832,31 +864,28 @@
             } else if (val > absoluteMax) {
                 inputElement.value = absoluteMax;
                 val = absoluteMax;
-                err.innerText = isMobile 
-                    ? `Mobile limit enforced: Max 50,000 records to prevent browser crash.` 
-                    : `Limit enforced: Value must be between 1 and 1,000,000.`;
+                err.innerText = `Limit enforced: Value must be between 1 and 1,000,000.`;
                 err.style.display = 'block';
                 setTimeout(() => err.style.display = 'none', 4000);
             } else {
                 err.style.display = 'none';
             }
 
-            const estimatedSec = (val / 180000).toFixed(2);
-            text.innerText = `Request will process in seconds (~${estimatedSec}s)`;
+            // Show technical desktop warning banner if records exceed 50,000
+            if (val > 50000) {
+                desktopWarning.style.display = 'flex';
+            } else {
+                desktopWarning.style.display = 'none';
+            }
+
+            const estimatedSec = (val / 150000).toFixed(1);
+            text.innerText = `Estimated processing time: ~${estimatedSec}s`;
         }
 
         function openBulkModal() {
             const input = document.getElementById('bulkInput');
-            const label = document.getElementById('bulkInputLabel');
-            
-            if (isMobile) {
-                input.max = MAX_MOBILE_LIMIT;
-                if (parseInt(input.value) > MAX_MOBILE_LIMIT) input.value = 10000;
-                label.innerText = `Enter records needed (Mobile Max 50,000):`;
-            } else {
-                input.max = 1000000;
-                label.innerText = `Enter records needed (Max 1,000,000):`;
-            }
+            input.max = 1000000;
+            document.getElementById('bulkInputLabel').innerText = `Enter records needed (Max 1,000,000):`;
 
             enforceLimitAndEstimate(input);
             document.getElementById('workingNotice').style.display = 'none';
@@ -906,10 +935,12 @@
             const count = parseInt(document.getElementById('bulkInput').value);
             const includeFullName = document.getElementById('bulkIncludeFullName').checked;
             const nameOrder = document.getElementById('bulkNameOrder').value;
+            const format = document.getElementById('exportFormat').value;
 
             document.getElementById('inputGroupContainer').style.display = 'none';
             document.getElementById('optionsGroupContainer').style.display = 'none';
             document.getElementById('estimateBox').style.display = 'none';
+            document.getElementById('desktopWarning').style.display = 'none';
             document.getElementById('modalActionButtons').style.display = 'none';
             
             const workingNotice = document.getElementById('workingNotice');
@@ -921,14 +952,15 @@
             workingNotice.style.display = 'block';
             progressBox.style.display = 'block';
 
-            let aoaData = [];
+            let batchSize = isMobile ? 15000 : 50000;
+            let currentIndex = 0;
+            
             let headers = ['HKID', 'English First Name', 'English Last Name', 'Chinese Surname', 'Chinese Given Name'];
             if (includeFullName) headers.push('Full Chinese Name');
             headers.push('Date of Birth', 'Gender');
-            aoaData.push(headers);
 
-            let batchSize = isMobile ? 5000 : 20000;
-            let currentIndex = 0;
+            let csvChunks = [headers.join(',') + '\n'];
+            let aoaData = [headers];
 
             function processBatch() {
                 let endIdx = Math.min(currentIndex + batchSize, count);
@@ -944,7 +976,11 @@
                     if (includeFullName) row.push(fullCn);
                     row.push(profile.dob, profile.gender);
                     
-                    aoaData.push(row);
+                    if (format === 'csv') {
+                        csvChunks.push(row.join(',') + '\n');
+                    } else {
+                        aoaData.push(row);
+                    }
                 }
 
                 currentIndex = endIdx;
@@ -958,38 +994,36 @@
                 } else {
                     setTimeout(() => {
                         try {
-                            progressText.innerText = `Building spreadsheet package...`;
-                            let ws = XLSX.utils.aoa_to_sheet(aoaData);
-                            let wb = XLSX.utils.book_new();
-                            XLSX.utils.book_append_sheet(wb, ws, "HKID_Dataset");
+                            progressText.innerText = `Packaging file for download...`;
+                            let blob, fileExtension;
 
-                            let wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-                            let blob = new Blob([wbout], { type: "application/octet-stream" });
+                            if (format === 'csv') {
+                                blob = new Blob(csvChunks, { type: 'text/csv;charset=utf-8;' });
+                                fileExtension = 'csv';
+                            } else {
+                                let ws = XLSX.utils.aoa_to_sheet(aoaData);
+                                let wb = XLSX.utils.book_new();
+                                XLSX.utils.book_append_sheet(wb, ws, "HKID_Dataset");
+                                let wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+                                blob = new Blob([wbout], { type: "application/octet-stream" });
+                                fileExtension = 'xlsx';
+                            }
+
                             let url = URL.createObjectURL(blob);
-
                             workingNotice.style.display = 'none';
                             progressBox.style.display = 'none';
 
-                            if (isMobile) {
-                                let manualBtn = document.getElementById('manualDownloadBtn');
-                                manualBtn.href = url;
-                                manualBtn.download = `HKID_Test_Dataset_${count}_records.xlsx`;
-                                document.getElementById('mobileDownloadContainer').style.display = 'block';
-                            } else {
-                                let downloadLink = document.createElement("a");
-                                downloadLink.href = url;
-                                downloadLink.download = `HKID_Test_Dataset_${count}_records.xlsx`;
-                                document.body.appendChild(downloadLink);
-                                downloadLink.click();
-                                document.body.removeChild(downloadLink);
-                                closeBulkModal();
-                                showToast(`Successfully exported ${count.toLocaleString()} records!`);
-                            }
+                            let manualBtn = document.getElementById('manualDownloadBtn');
+                            manualBtn.href = url;
+                            manualBtn.download = `HKID_Test_Dataset_${count}_records.${fileExtension}`;
+                            manualBtn.innerHTML = `<i class="fa-solid fa-cloud-arrow-down"></i> Download ${fileExtension.toUpperCase()} File (${(blob.size / (1024*1024)).toFixed(1)} MB)`;
+                            document.getElementById('mobileDownloadContainer').style.display = 'block';
+
                         } catch (err) {
                             console.error(err);
                             workingNotice.style.display = 'none';
                             progressBox.style.display = 'none';
-                            document.getElementById('bulkError').innerText = "Error generating file. Try a smaller record size.";
+                            document.getElementById('bulkError').innerText = "Memory limit reached for this size. Try CSV format or a smaller batch.";
                             document.getElementById('bulkError').style.display = 'block';
                             document.getElementById('inputGroupContainer').style.display = 'block';
                             document.getElementById('optionsGroupContainer').style.display = 'block';
