@@ -138,6 +138,8 @@
             gap: 10px;
             font-size: 0.92rem;
             box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+            text-decoration: none;
+            justify-content: center;
         }
 
         .btn:hover {
@@ -157,6 +159,16 @@
             background: rgba(14, 116, 144, 0.1);
             border-color: var(--card-border-hover);
             box-shadow: 0 4px 12px rgba(14, 116, 144, 0.05);
+        }
+
+        .btn-success {
+            background: #10b981;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+        }
+
+        .btn-success:hover {
+            background: #059669;
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
         }
 
         .preference-panel {
@@ -597,12 +609,12 @@
         <div class="modal-content">
             <h2>Export Bulk HKID Dataset</h2>
             
-            <div class="input-group">
+            <div class="input-group" id="inputGroupContainer">
                 <label for="bulkInput">Enter records needed (Max 1,000,000):</label>
                 <input type="number" id="bulkInput" min="1" max="1000000" value="5000" oninput="enforceLimitAndEstimate(this)">
             </div>
 
-            <div class="input-group">
+            <div class="input-group" id="optionsGroupContainer">
                 <label class="checkbox-label" style="margin-bottom:8px;">
                     <input type="checkbox" id="bulkIncludeFullName" checked> Include Full Chinese Name in Export
                 </label>
@@ -633,6 +645,14 @@
                 <div class="progress-bar-bg">
                     <div class="progress-bar-fill" id="progressBarFill"></div>
                 </div>
+            </div>
+
+            <!-- Mobile Manual Download Action Container (Hidden until ready) -->
+            <div id="mobileDownloadContainer" style="display:none; text-align:center; margin-top:15px;">
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">Dataset ready! Tap below to save your file:</p>
+                <a id="manualDownloadBtn" href="#" class="btn btn-success" style="width:100%; margin-bottom:10px;">
+                    <i class="fa-solid fa-cloud-arrow-down"></i> Download Excel File (.xlsx)
+                </a>
             </div>
 
             <p id="bulkError" style="color: #ef4444; font-size: 0.82rem; display: none; margin-bottom: 10px;">Limit enforced: Value must be between 1 and 1,000,000.</p>
@@ -821,6 +841,9 @@
             document.getElementById('workingNotice').style.display = 'none';
             document.getElementById('estimateBox').style.display = 'flex';
             document.getElementById('progressBox').style.display = 'none';
+            document.getElementById('mobileDownloadContainer').style.display = 'none';
+            document.getElementById('inputGroupContainer').style.display = 'block';
+            document.getElementById('optionsGroupContainer').style.display = 'block';
             document.getElementById('modalActionButtons').style.display = 'flex';
             document.getElementById('bulkModal').style.display = 'flex';
         }
@@ -853,7 +876,7 @@
             showToast('Returned to home dashboard');
         }
 
-        // Optimized Non-Blocking Bulk Dataset Generator with Mobile-Safe Blob Download
+        // Optimized Non-Blocking Bulk Dataset Generator with Mobile Manual Download Button
         function generateBulkDataset() {
             const inputField = document.getElementById('bulkInput');
             let target = parseInt(inputField.value);
@@ -863,6 +886,10 @@
             if (isNaN(target) || target < 1) target = 1;
             if (target > 1000000) target = 1000000;
             inputField.value = target;
+
+            // Hide configuration fields
+            document.getElementById('inputGroupContainer').style.display = 'none';
+            document.getElementById('optionsGroupContainer').style.display = 'none';
 
             const workingNotice = document.getElementById('workingNotice');
             const workingSubtitle = document.getElementById('workingSubtitle');
@@ -940,29 +967,32 @@
                             const workbook = XLSX.utils.book_new();
                             XLSX.utils.book_append_sheet(workbook, worksheet, "HKID_Dataset");
                             
-                            // Mobile-Compatible Blob Export Trigger
+                            // Generate Blob & Setup Mobile Manual Download Button
                             const wbout = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
                             const blob = new Blob([wbout], { type: 'application/octet-stream' });
                             const fileName = `HKID_Test_Dataset_${target}_records.xlsx`;
+                            const url = URL.createObjectURL(blob);
+
+                            // Hide progress & working indicators, show manual download button
+                            workingNotice.style.display = 'none';
+                            progressBox.style.display = 'none';
+
+                            const manualBtn = document.getElementById('manualDownloadBtn');
+                            manualBtn.href = url;
+                            manualBtn.download = fileName;
                             
-                            if (navigator.msSaveOrOpenBlob) {
-                                navigator.msSaveOrOpenBlob(blob, fileName);
-                            } else {
-                                const url = URL.createObjectURL(blob);
-                                const a = document.createElement('a');
-                                a.href = url;
-                                a.download = fileName;
-                                document.body.appendChild(a);
-                                a.click();
-                                setTimeout(() => {
-                                    document.body.removeChild(a);
-                                    window.URL.revokeObjectURL(url);
-                                }, 100);
-                            }
-                            
+                            // Also attempt automatic trigger for desktop/supported mobile browsers
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = fileName;
+                            document.body.appendChild(a);
+                            a.click();
+                            document.body.removeChild(a);
+
+                            document.getElementById('mobileDownloadContainer').style.display = 'block';
+
                             const totalTime = ((performance.now() - startTime) / 1000).toFixed(2);
-                            closeBulkModal();
-                            showToast(`Successfully exported ${target.toLocaleString()} records in ${totalTime}s!`);
+                            showToast(`Successfully generated ${target.toLocaleString()} records in ${totalTime}s!`);
                         } catch (err) {
                             console.error(err);
                             alert("Export failed: " + err.message);
